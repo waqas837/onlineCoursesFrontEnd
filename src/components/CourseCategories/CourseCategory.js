@@ -31,57 +31,53 @@ const CourseCategory = () => {
         />
       </Box>
       {/* caresoule */}
-      <Box my={3}>
-      <Box mb={3}>
+     
+      <Box mb={5}>
           <Carousel
            navButtonsAlwaysVisible
            autoPlay={false}
            showThumbs={false}
+           showIndicators={false}
            showStatus={0}
            centerMode
-           centerSlidePercentage={50}
+           centerSlidePercentage={30}
            >
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-    <h5>headins</h5>
-    <p>paragraphs</p>
+    
     
   </div>
   
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-     <h5>headins</h5>
-    <p>paragraphs</p>
+      
     
   </div>
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-     <h5>headins</h5>
-    <p>paragraphs</p>
+      
+     
     
   </div>
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-     <h5>headins</h5>
-    <p>paprahs</p>
+     
     
   </div>
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-     <h5>headins</h5>
-    <p>paprahs</p>
+      
     
   </div>
   <div style={{padding:"10px"}}>
     <img src={image} alt="" width="100px" height="200px"/>
-     <h5>headins</h5>
-    <p>paprahs</p>
+      
     
   </div>
 
            </Carousel>
           </Box>
-      </Box>
+    
     </div>
   );
 };
