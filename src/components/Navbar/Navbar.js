@@ -1,8 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import { MainSecondary, Maingrey, useStyles2 } from "../../Styles/Main.Styles";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.jpeg"
-// import FixedDrawer from "../Drawer/FixedDrawer";
+import Drawer from "../Drawer/Drawer";
 import {
   AppBar,
   Box,
@@ -97,12 +97,13 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const classes = useStyles();
   const classes2 = useStyles2();
+  const [opendrawer,setopendrawer] = useState(false)
   return (
     <div>
       <AppBar
         position="fixed"
         color="inherit"
-        elevation={3}
+        elevation={5}
         style={{ height: "60px"}}
       >
         <Toolbar>
@@ -157,14 +158,14 @@ const Navbar = () => {
           </Box>
           <Hidden only={["xl", "lg", "md"]}>
             <Box ml="auto">
-              <IconButton>
+              <IconButton onClick={()=>setopendrawer(true)}>
                 <Menu fontSize="small" color="secondary" />
               </IconButton>
             </Box>
           </Hidden>
         </Toolbar>
       </AppBar>
-      {/* <FixedDrawer /> */}
+      <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
     </div>
   );
 };

@@ -11,15 +11,15 @@ const ScrollToTopButton = () => {
   return (
     <div>
       <IconButton
+        onClick={jumpToTop}
         style={{
           background: "rgb(233,30,99)",
           position: "fixed",
-          left: "93%",
+          left: "90%",
           top: "90%",
-          zIndex:"1000px",
+          zIndex: "1000px",
           color: "white",
         }}
-        onClick={jumpToTop}
       >
         <ArrowUpward
           style={{ fontSize: "13px", fontWeight: "bold" }}
