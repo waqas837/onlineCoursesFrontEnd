@@ -12,7 +12,7 @@ import {
   makeStyles,
   Button,
 } from "@material-ui/core";
-import { useStyles2 } from "../../Styles/Main.Styles";
+import { useStyles2 } from "../Navbar/Main.Styles";
 import { CastForEducation, Person, Star } from "@material-ui/icons";
 import { yellow } from "@material-ui/core/colors";
 import dummyimg from "../../images/img4.jpg";

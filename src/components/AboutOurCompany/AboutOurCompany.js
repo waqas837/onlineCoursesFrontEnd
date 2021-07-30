@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Box, Typography, Button, Container } from "@material-ui/core";
 import dummyimg from "../../images/img4.jpg";
-import { useStyles2 } from "../../Styles/Main.Styles";
+import { useStyles2 } from "../Navbar/Main.Styles";
 import { grey } from "@material-ui/core/colors";
 const AboutOurCompany = () => {
   const classes = useStyles2();

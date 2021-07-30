@@ -13,6 +13,7 @@ import FeaturedInstructors from "./components/FeaturedInstructors/FeaturedInstru
 import UpcomingEvents from "./components/UpcomingEvents/UpcomingEvents";
 import LatestNews from "./components/LatestNews/LatestNews";
 import OurSponsers from "./components/OurSponsers/OurSponsers";
+import BecomePartner from "./components/BecomePartner/BecomePartner";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -37,6 +38,7 @@ function App() {
         <UpcomingEvents />
         <LatestNews />
         <OurSponsers />
+        <BecomePartner />
       </ThemeProvider>
     </div>
   );

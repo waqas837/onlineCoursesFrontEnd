@@ -8,7 +8,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import { MainSecondary, useStyles2 } from "../../Styles/Main.Styles";
+import { useStyles2 } from "../Navbar/Main.Styles";
 import image from "../../images/manbag.jpg";
 const TeacherForm = () => {
   const classes = useStyles2();

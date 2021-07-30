@@ -123,7 +123,7 @@ const UpcomingEvents = () => {
   const Month = months[monthName];
 
   return (
-    <div>
+    <div style={{marginBottom:"40px"}}>
       <Box mt={5} textAlign="center">
         <Typography style={{ fontWeight: "bolder" }} variant="h4">
           Upcoming Events

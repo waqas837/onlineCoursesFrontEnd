@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { MainSecondary, Maingrey, useStyles2 } from "../../Styles/Main.Styles";
+import { MainSecondary, Maingrey, useStyles2 } from "./Main.Styles";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.jpeg"
 import Drawer from "../Drawer/Drawer";

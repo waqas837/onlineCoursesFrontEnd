@@ -2,11 +2,14 @@ import React from "react";
 import { Box, Container, Divider, Grid, Typography } from "@material-ui/core";
 import dummyimg from "../../images/img4.jpg";
 import { useStyels } from "./LatestNewsStyles";
+import { grey } from "@material-ui/core/colors";
 
 const LatestNews = () => {
   const classes = useStyels();
   return (
-    <div>
+    <div
+      style={{ background: grey[200], paddingTop: "23px",paddingBottom: "35px", marginTop: "5px" }}
+    >
       <Box mt={5} textAlign="center">
         <Typography style={{ fontWeight: "bolder" }} variant="h4">
           Latest News
