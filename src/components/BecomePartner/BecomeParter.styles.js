@@ -6,7 +6,7 @@ const useStyels = makeStyles((theme) => ({
     background:"rgb(233,30,99)",
     borderRadius:"0px",
     position: "relative",
-    top: "100px",
+    top: "-10px",
     left: "-30px",
     width:"260px",
     marginLeft:"100px",
@@ -14,16 +14,18 @@ const useStyels = makeStyles((theme) => ({
       color: "white",
       background:"rgb(233,30,99)",
       borderRadius:"0px",
-      position: "absolute",
-       width:"250px",
-     
+      position: "relative",
+      top: "-40px",
+      left: "-10px",
+      width:"250px",
+      marginLeft:"100px",
     },
+    
   },
   button:{
     borderRadius:"50px",
     borderColor:"white",
-    color:"white",
-
+    color:"white"
   },
    
 }));

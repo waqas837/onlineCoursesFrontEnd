@@ -1,18 +1,21 @@
 import React,{useState} from "react";
-import { MainSecondary, Maingrey, useStyles2 } from "./Main.Styles";
-import { NavLink } from "react-router-dom";
+ import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.jpeg"
 import Drawer from "../Drawer/Drawer";
 import {
   AppBar,
   Box,
   Button,
+  Container,
   Hidden,
   IconButton,
   makeStyles,
   Toolbar,
 } from "@material-ui/core";
 import { ExpandMore, Menu } from "@material-ui/icons";
+import { grey } from "@material-ui/core/colors";
+var Maingrey = grey[400];
+var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -92,14 +95,75 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  buttonStyle: {
+    background: MainSecondary,
+    color: "white",
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    
+  },
+  buttonStyleOutlined: {
+    border:`2px solid ${MainSecondary}`,
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    marginLeft:"5px",
+    '&:hover':{
+      border:`2px solid ${MainSecondary}`,
+      borderRadius:"50px",
+      fontSize:"12px",
+      paddingLeft:"12px",
+      paddingRight:"12px",
+      fontWeight:"bolder",
+    }
+  },
+  
+  resposiveFromSide:{
+     [theme.breakpoints.down('sm')]:{
+         marginLeft:"50px"
+     }
+  },
+  input:{
+    height:"40px",
+    borderRadius:"0px",
+    marginBottom:"10px",
+    fontWeight:"bolder"
+  },
+  formControl: {
+    minWidth: 160,
+  },
+  formControl2: {
+    minWidth: 160,
+    marginTop:"-15px"
+  },
+  card:{
+    width:"230px",
+    [theme.breakpoints.down('sm')]:{
+      marginLeft:"-70px"
+    }
+  },
+  text:{
+    fontWeight:"bolder",
+    color:"white",
+  },
+  paper:{
+    borderRadius:"0px",
+    marginTop:"20px"
+  }
 }));
 
 const Navbar = () => {
   const classes = useStyles();
-  const classes2 = useStyles2();
+ 
   const [opendrawer,setopendrawer] = useState(false)
   return (
     <div>
+     
       <AppBar
         position="fixed"
         color="inherit"
@@ -140,7 +204,7 @@ const Navbar = () => {
           </Box>
           <Box className={classes.hideNavigationForSmallScreen}>
             <Button
-              className={classes2.buttonStyle}
+              className={classes.buttonStyle}
               variant="contained"
               color="secondary"
               style={{ boxShadow: "none" }}
@@ -148,7 +212,7 @@ const Navbar = () => {
               Login
             </Button>
             <Button
-              className={classes2.buttonStyleOutlined}
+              className={classes.buttonStyleOutlined}
               size="small"
               variant="outlined"
               color="secondary"
@@ -165,7 +229,7 @@ const Navbar = () => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
+       <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
     </div>
   );
 };

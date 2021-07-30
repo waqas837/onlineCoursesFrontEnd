@@ -18,7 +18,8 @@ const BecomePartner = () => {
         >
           {/* heading 1 */}
           <Box textAlign="center" >
-            <Container maxWidth="xs" style={{position: "relative"}}>
+            <Container maxWidth="xs">
+              <Box pt={20}>
               <Paper className={classes.paper}>
                 <Typography variant="h5">Become a Teacher</Typography>
                  <Box my={3}>
@@ -35,6 +36,7 @@ const BecomePartner = () => {
                   <Typography variant="body2">Join With Us</Typography>
                 </Button>
               </Paper>
+              </Box>
             </Container>
           </Box>
         </div>

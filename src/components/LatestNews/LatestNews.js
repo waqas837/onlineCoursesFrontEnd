@@ -9,7 +9,8 @@ const LatestNews = () => {
   return (
     <div
       style={{ background: grey[200], paddingTop: "23px",paddingBottom: "35px", marginTop: "5px" }}
-    >
+    ><Container>
+      
       <Box mt={5} textAlign="center">
         <Typography style={{ fontWeight: "bolder" }} variant="h4">
           Latest News
@@ -109,6 +110,7 @@ const LatestNews = () => {
           </Grid>
         </Container>
       </Box>
+    </Container>
     </div>
   );
 };

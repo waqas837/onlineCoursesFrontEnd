@@ -6,20 +6,84 @@ import {
   Grid,
   Paper,
   Typography,
-  Container,
+  Container,makeStyles
 } from "@material-ui/core";
-import { useStyles2 } from "../Navbar/Main.Styles";
 import image from "../../images/manbag.jpg";
+import { grey } from "@material-ui/core/colors";
+var Maingrey = grey[400];
+var MainSecondary = "rgb(233,30,99)";
+const useStyles = makeStyles((theme) => ({
+  buttonStyle: {
+    background: MainSecondary,
+    color: "white",
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    
+  },
+  buttonStyleOutlined: {
+    border:`2px solid ${MainSecondary}`,
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    marginLeft:"5px",
+    '&:hover':{
+      border:`2px solid ${MainSecondary}`,
+      borderRadius:"50px",
+      fontSize:"12px",
+      paddingLeft:"12px",
+      paddingRight:"12px",
+      fontWeight:"bolder",
+    }
+  },
+  
+  resposiveFromSide:{
+     [theme.breakpoints.down('sm')]:{
+         marginLeft:"50px"
+     }
+  },
+  input:{
+    height:"40px",
+    borderRadius:"0px",
+    marginBottom:"10px",
+    fontWeight:"bolder"
+  },
+  formControl: {
+    minWidth: 160,
+  },
+  formControl2: {
+    minWidth: 160,
+    marginTop:"-15px"
+  },
+  card:{
+    width:"230px",
+    [theme.breakpoints.down('sm')]:{
+      marginLeft:"-70px"
+    }
+  },
+  text:{
+    fontWeight:"bolder",
+    color:"white",
+  },
+  paper:{
+    borderRadius:"0px",
+    marginTop:"20px"
+  }
+}));
 const TeacherForm = () => {
-  const classes = useStyles2();
+  const classes = useStyles();
   return (
     <div>
       <Box mt={7}>
         {/* main line*/}
-        <Grid container>
+       
           {/* first section for form */}
-
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+          <Grid container>
+          <Grid item xs={12} sm={6} md={6} lg={6} xl={6} >
             {/* headings */}
             <Box style={{ background: "rgb(158,7,105)" }} pb={9}>
               {/* becocome a teacher */}
@@ -74,7 +138,7 @@ const TeacherForm = () => {
               alt=""
             />
           </Grid>
-        </Grid>
+          </Grid>
       </Box>
     </div>
   );
