@@ -7,12 +7,18 @@ import {
   Paper,
   Grid,
   Container,
-  makeStyles,Card,
+  makeStyles,
+  Card,
   CardActionArea,
   Button,
   CardMedia,
 } from "@material-ui/core";
-import { LocationOnOutlined, AccessTime, MailOutline, MessageOutlined } from "@material-ui/icons";
+import {
+  LocationOnOutlined,
+  AccessTime,
+  MailOutline,
+  MessageOutlined,
+} from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,12 +56,11 @@ const useStyles = makeStyles((theme) => ({
     color: "grey",
     fontWeight: "bolder",
   },
-  date:{
+  date: {
     month: {
       [theme.breakpoints.down("sm")]: {
         // marginLeft: "4px",
       },
-      
     },
   },
   root: {
@@ -63,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   font: {
     position: "absolute",
-    top: "57%",
+    top: "33%",
     left: "1%",
     width: "100%",
     color: "white",
@@ -78,10 +83,19 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     backgroundColor: "none",
   },
-  font3:{
-    borderRadius:"20px",
-    margin:"5px"
-  }
+  font3: {
+    borderRadius: "20px",
+    margin: "5px",
+  },
+  lastbutton: {
+    color: "white",
+    borderColor: "white",
+    borderRadius: "20px",
+    fontWeight: "bold",
+    [theme.breakpoints.down("sm")]:{
+      marginBottom:"20px"
+    }
+  },
 }));
 const UpcomingEvents = () => {
   const classes = useStyles();
@@ -144,12 +158,14 @@ const UpcomingEvents = () => {
                   {/* date */}
                   <Box display="block">
                     <Box>
-                      <Typography className={classes.date} variant="h4">{today}</Typography>
+                      <Typography className={classes.date} variant="h4">
+                        {today}
+                      </Typography>
                     </Box>
-                   {/* 
+                    {/* 
                     month */}
                     <Box>
-                      <Typography variant="caption"  className={classes.month}>
+                      <Typography variant="caption" className={classes.month}>
                         {Month}
                       </Typography>
                       {/* year */}
@@ -196,15 +212,13 @@ const UpcomingEvents = () => {
                   {/* date */}
                   <Box display="block">
                     <Box>
-                      <Typography className={classes.date} variant="h4">{today}</Typography>
+                      <Typography className={classes.date} variant="h4">
+                        {today}
+                      </Typography>
                     </Box>
                     {/* month */}
                     <Box>
-                      <Typography
-                        className={classes.month}
-                        variant="caption"
-                         
-                      >
+                      <Typography className={classes.month} variant="caption">
                         {Month}
                       </Typography>
                       {/* year */}
@@ -251,15 +265,13 @@ const UpcomingEvents = () => {
                   {/* date */}
                   <Box display="block">
                     <Box>
-                      <Typography className={classes.date} variant="h4">{today}</Typography>
+                      <Typography className={classes.date} variant="h4">
+                        {today}
+                      </Typography>
                     </Box>
                     {/* month */}
                     <Box>
-                      <Typography
-                        className={classes.month}
-                        variant="caption"
-                         
-                      >
+                      <Typography className={classes.month} variant="caption">
                         {Month}
                       </Typography>
                       {/* year */}
@@ -304,46 +316,45 @@ const UpcomingEvents = () => {
 
             {/* second column */}
             <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Card
-                //   onMouseOver={()=>alert("ok")}
-                elevation={7}
+              <div
                 style={{
-                  borderRadius:"0px"
+                  backgroundImage: `url(${dummyimg})`,
+                  backgroundSize: "100% 100%",
+                  height: "100%",
+                  boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.5)",
                 }}
               >
-                <CardActionArea>
-                  <CardMedia>
-                    <img src={dummyimg} width="100%" height="380px" alt="" />
-                    <Typography
-                      variant="h6"
-                      className={classes.font}
-                    >
-                      <MessageOutlined style={{}}/>
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      className={classes.font}
-                    >
-                      Upcoming Educational Events
-                    </Typography>
-
-                    <Typography
-                      variant="body1"
-                      className={classes.font2}
-                    >
-                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio
-                    </Typography>
-
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      className={classes.font3}
-                    >
-                      All Events
-                    </Button>
-                  </CardMedia>            
-                </CardActionArea>
-              </Card>
+                {/* icon */}
+                <Box pl={5} pt={5}>
+                  <MessageOutlined
+                    fontSize="large"
+                    style={{ color: "white", fontSize: "50px" }}
+                  />
+                </Box>
+                {/* heading 1 */}
+                <Box textAlign="center">
+                  <Typography variant="h6" style={{ color: "white" }}>
+                    Upcoming Educational Events
+                  </Typography>
+                </Box>
+                {/* heading 2 */}
+                <Box pl={4} pt={2} textAlign="center">
+                  <Typography variant="body1" style={{ color: "white" }}>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    Donec odio
+                  </Typography>
+                </Box>
+                {/* button */}
+                <Box pl={5} pt={15}>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    className={classes.lastbutton}
+                  >
+                    All Events
+                  </Button>
+                </Box>
+              </div>
             </Grid>
           </Grid>
         </Container>

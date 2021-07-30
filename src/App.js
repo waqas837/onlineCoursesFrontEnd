@@ -11,6 +11,8 @@ import PopularCourses from "./components/PopularCourses/PopularCourses";
 import Calcluations from "./components/Calculations/Calcluations";
 import FeaturedInstructors from "./components/FeaturedInstructors/FeaturedInstructors";
 import UpcomingEvents from "./components/UpcomingEvents/UpcomingEvents";
+import LatestNews from "./components/LatestNews/LatestNews";
+import OurSponsers from "./components/OurSponsers/OurSponsers";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -33,6 +35,8 @@ function App() {
         <Calcluations />
         <FeaturedInstructors />
         <UpcomingEvents />
+        <LatestNews />
+        <OurSponsers />
       </ThemeProvider>
     </div>
   );
