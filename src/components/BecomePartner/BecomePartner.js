@@ -21,7 +21,7 @@ const BecomePartner = () => {
             <Container maxWidth="xs">
               <Box pt={20}>
               <Paper className={classes.paper}>
-                <Typography variant="h5">Become a Teacher</Typography>
+                <Typography variant="h5">Become a Partner</Typography>
                  <Box my={3}>
                   <Typography variant="body2">
                     Lorem Ipsum is simply dummy text of the printing and

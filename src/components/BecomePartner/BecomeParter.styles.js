@@ -9,7 +9,7 @@ const useStyels = makeStyles((theme) => ({
     top: "-10px",
     left: "-30px",
     width:"260px",
-    marginLeft:"100px",
+    
     [theme.breakpoints.down("sm")]: {
       color: "white",
       background:"rgb(233,30,99)",
@@ -18,7 +18,7 @@ const useStyels = makeStyles((theme) => ({
       top: "-40px",
       left: "-10px",
       width:"250px",
-      marginLeft:"100px",
+   
     },
     
   },

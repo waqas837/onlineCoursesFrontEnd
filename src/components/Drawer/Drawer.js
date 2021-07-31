@@ -20,7 +20,7 @@ const Drawer = ({ opendrawer, setopendrawer }) => {
         onClose={() => setopendrawer(false)}
         anchor="left"
       >
-        <List style={{ width: "300px" }}>
+        <List style={{ width: "240px" }}>
           {/* logo */}
           <ListItem button>
             <img src={logo} width="100px" height="60px" alt="" />

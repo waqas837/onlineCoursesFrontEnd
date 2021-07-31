@@ -1,0 +1,27 @@
+ul li{
+    list-style-type: none;
+    margin-bottom:10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid grey;
+    font-size: small;
+
+}
+ul li::before {
+    content: "\2022";
+    color: red;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+  }
+  ul li:hover{
+      border-bottom: 1px solid red;
+      cursor: pointer;
+      color: red;
+      transition: all ease-in-out .4s;
+      -webkit-transition: all ease-in-out .4s;
+      -moz-transition: all ease-in-out .4s;
+      -ms-transition: all ease-in-out .4s;
+      -o-transition: all ease-in-out .4s;
+}
+ 

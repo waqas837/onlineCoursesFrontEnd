@@ -1,10 +1,75 @@
 import React from "react";
-import { Grid, Box, Typography, Button, Container } from "@material-ui/core";
+import { Grid, Box, Typography, Button, Container ,makeStyles} from "@material-ui/core";
 import dummyimg from "../../images/img4.jpg";
-import { useStyles2 } from "../Navbar/Main.Styles";
 import { grey } from "@material-ui/core/colors";
+var MainSecondary = "rgb(233,30,99)";
+const useStyles = makeStyles((theme) => ({
+  buttonStyle: {
+    background: MainSecondary,
+    color: "white",
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    
+  },
+  buttonStyleOutlined: {
+    border:`2px solid ${MainSecondary}`,
+    borderRadius:"50px",
+    fontSize:"12px",
+    paddingLeft:"12px",
+    paddingRight:"12px",
+    fontWeight:"bolder",
+    marginLeft:"5px",
+    '&:hover':{
+      border:`2px solid ${MainSecondary}`,
+      borderRadius:"50px",
+      fontSize:"12px",
+      paddingLeft:"12px",
+      paddingRight:"12px",
+      fontWeight:"bolder",
+    }
+  },
+  
+  resposiveFromSide:{
+     [theme.breakpoints.down('sm')]:{
+         marginLeft:"50px"
+     }
+  },
+  input:{
+    height:"40px",
+    borderRadius:"0px",
+    marginBottom:"10px",
+    fontWeight:"bolder"
+  },
+  formControl: {
+    minWidth: 160,
+  },
+  formControl2: {
+    minWidth: 160,
+    marginTop:"-15px"
+  },
+  card:{
+    width:"230px",
+    [theme.breakpoints.down('sm')]:{
+      marginLeft:"-70px"
+    }
+  },
+  text:{
+    fontWeight:"bolder",
+    color:"white",
+  },
+  paper:{
+    borderRadius:"0px",
+    marginTop:"20px"
+  }
+}));
+
+
+
 const AboutOurCompany = () => {
-  const classes = useStyles2();
+  const classes = useStyles();
   return (
     <div>
       <Box ml={1} my={6} py={6} style={{ background: grey[100] }}>
