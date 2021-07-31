@@ -2,19 +2,20 @@ import React from "react";
 import "./App.css";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import TeacherForm from "./components/BecomeTeacherSection/TeacherForm";
+import Navbar from "./components/Home/Navbar/Navbar";
+import TeacherForm from "./components/Home/BecomeTeacherSection/TeacherForm";
 import ScrollToTopButton from "./components/ScrollToTopButton";
-import CourseCategory from "./components/CourseCategories/CourseCategory";
-import AboutOurCompany from "./components/AboutOurCompany/AboutOurCompany";
-import PopularCourses from "./components/PopularCourses/PopularCourses";
-import Calcluations from "./components/Calculations/Calcluations";
-import FeaturedInstructors from "./components/FeaturedInstructors/FeaturedInstructors";
-import UpcomingEvents from "./components/UpcomingEvents/UpcomingEvents";
-import LatestNews from "./components/LatestNews/LatestNews";
-import OurSponsers from "./components/OurSponsers/OurSponsers";
-import BecomePartner from "./components/BecomePartner/BecomePartner";
-import Footer from "./components/Footer/Footer";
+import CourseCategory from "./components/Home/CourseCategories/CourseCategory";
+import AboutOurCompany from "./components/Home/AboutOurCompany/AboutOurCompany";
+import PopularCourses from "./components/Home/PopularCourses/PopularCourses";
+import Calcluations from "./components/Home/Calculations/Calcluations";
+import FeaturedInstructors from "./components/Home/FeaturedInstructors/FeaturedInstructors";
+import UpcomingEvents from "./components/Home/UpcomingEvents/UpcomingEvents";
+import LatestNews from "./components/Home/LatestNews/LatestNews";
+import OurSponsers from "./components/Home/OurSponsers/OurSponsers";
+import BecomePartner from "./components/Home/BecomePartner/BecomePartner";
+import Footer from "./components/Home/Footer/Footer";
+import AllCourses from "./components/Courses/AllCourses";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -28,7 +29,10 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <ScrollToTopButton />
+        <Router>
+        {/* Home route*/}
+       <Route exact path="/">
+       <ScrollToTopButton />
         <Navbar />
         <TeacherForm />
         <CourseCategory />
@@ -41,6 +45,13 @@ function App() {
         <OurSponsers />
         <BecomePartner />
         <Footer/>
+       </Route>
+       {/* Courses Route */}
+       <Route exact to="/courses">
+       <Navbar/>
+       <AllCourses/>
+       </Route>
+        </Router>
       </ThemeProvider>
     </div>
   );

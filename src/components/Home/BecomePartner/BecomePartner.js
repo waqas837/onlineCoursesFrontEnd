@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Container, Paper, Typography } from "@material-ui/core";
 import { useStyels } from "./BecomeParter.styles";
-import dummyimg from "../../images/prtenr.jpg";
+import dummyimg from "../../../images/prtenr.jpg";
 const BecomePartner = () => {
   const classes = useStyels();
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Box, Typography, Button, Container ,makeStyles} from "@material-ui/core";
-import dummyimg from "../../images/img4.jpg";
+import dummyimg from "../../../images/img4.jpg";
 import { grey } from "@material-ui/core/colors";
 var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({

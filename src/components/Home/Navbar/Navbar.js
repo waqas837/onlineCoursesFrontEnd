@@ -1,6 +1,6 @@
-import React,{useState} from "react";
- import { NavLink } from "react-router-dom";
-import logo from "../../images/logo.jpeg"
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../../../images/logo.jpeg";
 import Drawer from "../Drawer/Drawer";
 import {
   AppBar,
@@ -98,77 +98,75 @@ const useStyles = makeStyles((theme) => ({
   buttonStyle: {
     background: MainSecondary,
     color: "white",
-    borderRadius:"50px",
-    fontSize:"12px",
-    paddingLeft:"12px",
-    paddingRight:"12px",
-    fontWeight:"bolder",
-    
+    borderRadius: "50px",
+    fontSize: "12px",
+    paddingLeft: "12px",
+    paddingRight: "12px",
+    fontWeight: "bolder",
   },
   buttonStyleOutlined: {
-    border:`2px solid ${MainSecondary}`,
-    borderRadius:"50px",
-    fontSize:"12px",
-    paddingLeft:"12px",
-    paddingRight:"12px",
-    fontWeight:"bolder",
-    marginLeft:"5px",
-    '&:hover':{
-      border:`2px solid ${MainSecondary}`,
-      borderRadius:"50px",
-      fontSize:"12px",
-      paddingLeft:"12px",
-      paddingRight:"12px",
-      fontWeight:"bolder",
-    }
+    border: `2px solid ${MainSecondary}`,
+    borderRadius: "50px",
+    fontSize: "12px",
+    paddingLeft: "12px",
+    paddingRight: "12px",
+    fontWeight: "bolder",
+    marginLeft: "5px",
+    "&:hover": {
+      border: `2px solid ${MainSecondary}`,
+      borderRadius: "50px",
+      fontSize: "12px",
+      paddingLeft: "12px",
+      paddingRight: "12px",
+      fontWeight: "bolder",
+    },
   },
-  
-  resposiveFromSide:{
-     [theme.breakpoints.down('sm')]:{
-         marginLeft:"50px"
-     }
+
+  resposiveFromSide: {
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "50px",
+    },
   },
-  input:{
-    height:"40px",
-    borderRadius:"0px",
-    marginBottom:"10px",
-    fontWeight:"bolder"
+  input: {
+    height: "40px",
+    borderRadius: "0px",
+    marginBottom: "10px",
+    fontWeight: "bolder",
   },
   formControl: {
     minWidth: 160,
   },
   formControl2: {
     minWidth: 160,
-    marginTop:"-15px"
+    marginTop: "-15px",
   },
-  card:{
-    width:"230px",
-    [theme.breakpoints.down('sm')]:{
-      marginLeft:"-70px"
-    }
+  card: {
+    width: "230px",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "-70px",
+    },
   },
-  text:{
-    fontWeight:"bolder",
-    color:"white",
+  text: {
+    fontWeight: "bolder",
+    color: "white",
   },
-  paper:{
-    borderRadius:"0px",
-    marginTop:"20px"
-  }
+  paper: {
+    borderRadius: "0px",
+    marginTop: "20px",
+  },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
- 
-  const [opendrawer,setopendrawer] = useState(false)
+
+  const [opendrawer, setopendrawer] = useState(false);
   return (
     <div>
-     
       <AppBar
         position="fixed"
         color="inherit"
         elevation={5}
-        style={{ height: "60px"}}
+        style={{ height: "60px" }}
       >
         <Toolbar>
           <IconButton
@@ -177,7 +175,7 @@ const Navbar = () => {
             color="inherit"
             aria-label="open drawer"
           >
-          <img src={logo} width="60px" height="55px" alt="" />
+            <img src={logo} width="60px" height="55px" alt="" />
           </IconButton>
           {/* create spacing */}
           <Box className={classes.searchIcon}>/</Box>
@@ -185,22 +183,27 @@ const Navbar = () => {
           {/* main navigations */}
 
           <Box className={classes.grow}>
-            <Button size="small" className={classes.text}>
+            <Button
+              size="small"
+              component={NavLink}
+              to="/"
+              exact
+              activeClassName={classes.activeLink}
+            >
               Home
             </Button>
             <Button
+              component={NavLink}
+              to="/courses"
+              exact
+              activeClassName={classes.activeLink}
               size="small"
               endIcon={<ExpandMore />}
-              className={classes.text}
             >
               Courses
             </Button>
-            <Button size="small" className={classes.text}>
-              Blog
-            </Button>
-            <Button size="small" className={classes.text}>
-              Contact
-            </Button>
+            <Button size="small">Blog</Button>
+            <Button size="small">Contact</Button>
           </Box>
           <Box className={classes.hideNavigationForSmallScreen}>
             <Button
@@ -222,14 +225,14 @@ const Navbar = () => {
           </Box>
           <Hidden only={["xl", "lg", "md"]}>
             <Box ml="auto">
-              <IconButton onClick={()=>setopendrawer(true)}>
+              <IconButton onClick={() => setopendrawer(true)}>
                 <Menu fontSize="small" color="secondary" />
               </IconButton>
             </Box>
           </Hidden>
         </Toolbar>
       </AppBar>
-       <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
+      <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
     </div>
   );
 };

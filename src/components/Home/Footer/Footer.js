@@ -15,7 +15,7 @@ import {
   PhoneInTalkOutlined,
   RoomOutlined,
 } from "@material-ui/icons";
-import logo from "../../images/logo.jpeg";
+import logo from "../../../images/logo.jpeg";
 import { grey } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   paper: {

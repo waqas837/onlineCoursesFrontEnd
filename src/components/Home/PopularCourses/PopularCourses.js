@@ -15,7 +15,7 @@ import {
 import { useStyles2 } from "../Navbar/Main.Styles";
 import { CastForEducation, Person, Star } from "@material-ui/icons";
 import { yellow } from "@material-ui/core/colors";
-import dummyimg from "../../images/img4.jpg";
+import dummyimg from "../../../images/img4.jpg";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",

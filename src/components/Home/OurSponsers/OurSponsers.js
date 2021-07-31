@@ -1,12 +1,12 @@
 import { Box, Container, Divider, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./OurSponsers.Stlyles";
-import sushi from "../../images/sushi.png";
-import bell from "../../images/BELL.png";
-import handcr from "../../images/handcr.png";
-import ns from "../../images/NS.png";
-import travel from "../../images/taravel.png";
-import urban from "../../images/urban.png";
+import sushi from "../../../images/sushi.png";
+import bell from "../../../images/BELL.png";
+import handcr from "../../../images/handcr.png";
+import ns from "../../../images/NS.png";
+import travel from "../../../images/taravel.png";
+import urban from "../../../images/urban.png";
 const OurSponsers = () => {
   const classes = useStyles();
   return (

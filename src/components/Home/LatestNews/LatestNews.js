@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container, Divider, Grid, Typography } from "@material-ui/core";
-import dummyimg from "../../images/img4.jpg";
+import dummyimg from "../../../images/img4.jpg";
 import { useStyels } from "./LatestNewsStyles";
 import { grey } from "@material-ui/core/colors";
 

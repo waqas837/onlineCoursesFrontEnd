@@ -8,7 +8,7 @@ import {
   Typography,
   Container,makeStyles
 } from "@material-ui/core";
-import image from "../../images/manbag.jpg";
+import image from "../../../images/download.jpg";
 import { grey } from "@material-ui/core/colors";
 var Maingrey = grey[400];
 var MainSecondary = "rgb(233,30,99)";

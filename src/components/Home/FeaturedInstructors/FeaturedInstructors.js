@@ -1,5 +1,5 @@
 import React from "react";
-import dummyimg from "../../images/img4.jpg";
+import dummyimg from "../../../images/img4.jpg";
 import {
   Box,
   Divider,

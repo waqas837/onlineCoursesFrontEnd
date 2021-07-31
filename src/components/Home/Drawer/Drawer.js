@@ -10,7 +10,7 @@ import {
   ListItemText,
   SwipeableDrawer,
 } from "@material-ui/core";
-import logo from "../../images/logo.jpeg";
+import logo from "../../../images/logo.jpeg";
 // main
 const Drawer = ({ opendrawer, setopendrawer }) => {
   return (
