@@ -1,7 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import { IconButton } from "@material-ui/core";
 import { ArrowUpward } from "@material-ui/icons";
 const ScrollToTopButton = () => {
+  const [state, setstate] = useState(false)
+ document.querySelector("body").onscroll = function(){
+   if(window.scrollY===120){
+       alert("OK")
+   }
+ }
   const jumpToTop = () => {
     window.scrollTo({
       behavior: "smooth",
@@ -10,7 +16,10 @@ const ScrollToTopButton = () => {
   };
   return (
     <div>
-      <IconButton
+      {
+        (()=>{
+          if(state){
+            return(<IconButton
         onClick={jumpToTop}
         style={{
           background: "rgb(233,30,99)",
@@ -25,7 +34,10 @@ const ScrollToTopButton = () => {
           style={{ fontSize: "13px", fontWeight: "bold" }}
           fontSize="small"
         />
-      </IconButton>
+      </IconButton>)
+          }
+        })()
+      }
     </div>
   );
 };

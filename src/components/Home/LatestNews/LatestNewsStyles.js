@@ -4,7 +4,7 @@ const useStyels = makeStyles((theme) => ({
     color: "white",
     position: "relative",
     top: "310px",
-    left: "-120px",
+    left: "-100px",
     [theme.breakpoints.down("sm")]: {
       color: "white",
       position: "relative",
@@ -16,7 +16,7 @@ const useStyels = makeStyles((theme) => ({
     color: "white",
     position: "relative",
     top: "300px",
-    left: "-60px",
+    left: "-40px",
     fontWeight: "bolder",
     [theme.breakpoints.down("sm")]: {
       color: "white",

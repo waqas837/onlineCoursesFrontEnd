@@ -19,17 +19,18 @@ import logo from "../../../images/logo.jpeg";
 import { grey } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   paper: {
-    color: "white",
+    [theme.breakpoints.up('sm')]:{
+      color: "white",
     background: "rgb(233,30,99)",
     borderRadius: "0px",
     width: "200px",
     height: "210px",
+    marginLeft:"40px"
+    },
     [theme.breakpoints.down("sm")]: {
       color: "white",
       background: "rgb(233,30,99)",
       borderRadius: "0px",
-      marginLeft: "48px",
-      width: "200px"
     },
   },
   button: {
@@ -152,7 +153,7 @@ const Footer = () => {
           <Grid container>
             <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
               <Typography variant="subtitle2" color="initial">
-                © 2018, All Rights Reserved.
+                © 2021, All Rights Reserved.
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>

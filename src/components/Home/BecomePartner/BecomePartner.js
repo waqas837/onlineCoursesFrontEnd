@@ -27,7 +27,7 @@ const BecomePartner = () => {
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry
                   </Typography>
-                </Box>{" "}
+                </Box>
                 <Button
                   variant="outlined"
                   size="large"

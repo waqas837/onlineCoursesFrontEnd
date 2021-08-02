@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Home, CloseOutlined, PhoneInTalk, Hotel } from "@material-ui/icons";
+import { NavLink, useHistory } from "react-router-dom";
+import {
+  Home,
+  CloseOutlined,
+  PhoneInTalk,
+  Hotel,
+  Book,
+  MenuBook,
+} from "@material-ui/icons";
 import {
   Divider,
   IconButton,
@@ -8,11 +15,22 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  makeStyles,
   SwipeableDrawer,
 } from "@material-ui/core";
 import logo from "../../../images/logo.jpeg";
+import { grey } from "@material-ui/core/colors";
+var MainSecondary = "rgb(233,30,99)";
 // main
+const useStyles = makeStyles((theme) => ({
+  activeLink: {
+    borderLeft: `3px solid ${MainSecondary}`,
+    borderRadius: "0px",
+    background: grey[100],
+  },
+}));
 const Drawer = ({ opendrawer, setopendrawer }) => {
+  const classes = useStyles();
   return (
     <div>
       <SwipeableDrawer
@@ -33,20 +51,41 @@ const Drawer = ({ opendrawer, setopendrawer }) => {
           </ListItem>
           <Divider />
           {/* Home */}
-          <ListItem button>
+          <ListItem
+            button
+            component={NavLink}
+            to="/"
+            exact
+            activeClassName={classes.activeLink}
+          >
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
-
-          <ListItem button>
+          {/* Courses */}
+          <ListItem
+            button
+            component={NavLink}
+            to="/courses"
+            exact
+            activeClassName={classes.activeLink}
+          >
             <ListItemIcon>
-              <Hotel />
+              <MenuBook />
             </ListItemIcon>
             <ListItemText primary="Courses" />
           </ListItem>
-          {/* Contact */}
+
+          {/* blogs*/}
+          <ListItem button>
+            <ListItemIcon>
+              <Book />
+            </ListItemIcon>
+            <ListItemText primary="Blogs" />
+          </ListItem>
+
+          {/* contact*/}
           <ListItem button>
             <ListItemIcon>
               <PhoneInTalk />

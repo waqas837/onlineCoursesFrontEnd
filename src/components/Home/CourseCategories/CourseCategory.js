@@ -1,7 +1,7 @@
 import React from "react";
 import { useStyles2 } from "../Navbar/Main.Styles";
 import { Grid, Box, Typography, Divider, Container, Hidden } from "@material-ui/core";
-import image from "../../../images/download.jpg";
+import image from "../../../images/img4.jpg";
 import image2 from "../../../images/img2.jpg";
 import image3 from "../../../images/img3.jpg";
 import image4 from "../../../images/img4.jpg";

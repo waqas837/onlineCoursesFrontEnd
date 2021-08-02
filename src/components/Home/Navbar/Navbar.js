@@ -6,7 +6,6 @@ import {
   AppBar,
   Box,
   Button,
-  Container,
   Hidden,
   IconButton,
   makeStyles,
@@ -83,7 +82,9 @@ const useStyles = makeStyles((theme) => ({
   },
   activeLink: {
     borderBottom: `2px solid ${MainSecondary}`,
+    color:MainSecondary,
     borderRadius: "0px",
+    background:grey[100]
   },
   text: {
     fontWeight: "bold",
@@ -189,21 +190,23 @@ const Navbar = () => {
               to="/"
               exact
               activeClassName={classes.activeLink}
+              style={{fontSize:"12px"}}
             >
               Home
             </Button>
             <Button
               component={NavLink}
               to="/courses"
-              exact
               activeClassName={classes.activeLink}
+              style={{fontSize:"12px"}}
               size="small"
               endIcon={<ExpandMore />}
             >
               Courses
             </Button>
-            <Button size="small">Blog</Button>
-            <Button size="small">Contact</Button>
+            <Button style={{fontSize:"12px"}} size="small">Blog</Button>
+            <Button style={{fontSize:"12px"}} size="small">About</Button>
+            <Button style={{fontSize:"12px"}} size="small">Contact</Button>
           </Box>
           <Box className={classes.hideNavigationForSmallScreen}>
             <Button
