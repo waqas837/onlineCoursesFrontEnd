@@ -6,13 +6,20 @@ import {
   AppBar,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Hidden,
   IconButton,
   makeStyles,
+  OutlinedInput,
   Toolbar,
+  Typography,
 } from "@material-ui/core";
-import {  Menu } from "@material-ui/icons";
+import { Close, Menu } from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
+import MainDialog from "../../MainDialog";
 var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -158,7 +165,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles();
-
+  const [loginDialog, setloginDialog] = useState(false);
+  const [signupdialog, setsignupdialog] = useState(false);
+  const [state, setstate] = useState([]);
+  console.log(state);
+  // login dialog open
+  const openLoginDialog = () => {
+    setloginDialog(true);
+  };
+  // login Now'
+  const login = () => {};
   const [opendrawer, setopendrawer] = useState(false);
   return (
     <div>
@@ -199,10 +215,10 @@ const Navbar = () => {
               activeClassName={classes.activeLink}
               style={{ fontSize: "12px" }}
               size="small"
-             >
+            >
               Courses
             </Button>
-             
+
             <Button
               style={{ fontSize: "12px" }}
               component={NavLink}
@@ -216,7 +232,9 @@ const Navbar = () => {
               component={NavLink}
               to="/contactus"
               activeClassName={classes.activeLink}
-             style={{ fontSize: "12px" }} size="small">
+              style={{ fontSize: "12px" }}
+              size="small"
+            >
               Contact
             </Button>
           </Box>
@@ -226,6 +244,7 @@ const Navbar = () => {
               variant="contained"
               color="secondary"
               style={{ boxShadow: "none" }}
+              onClick={openLoginDialog}
             >
               Login
             </Button>
@@ -234,6 +253,7 @@ const Navbar = () => {
               size="small"
               variant="outlined"
               color="secondary"
+              onClick={() => setsignupdialog(true)}
             >
               Signup
             </Button>
@@ -248,6 +268,107 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
+      {/* login dialog */}
+      <Box>
+        <Dialog open={loginDialog} onClose={() => setloginDialog(false)}>
+          <DialogTitle>
+            <Box textAlign="center" mt={4}>
+              <Typography variant="h5">Login</Typography>
+            </Box>{" "}
+            <IconButton
+              style={{ marginLeft: "180px", marginTop: "-140px" }}
+              onClick={() => setloginDialog(false)}
+            >
+              <Close />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <Box mb={2}>
+              <OutlinedInput
+                onChange={(e) => setstate({ ...state, email: e.target.value })}
+                placeholder="Email"
+                style={{ height: "34px" }}
+              />
+            </Box>
+            <Box mb={2}>
+              <OutlinedInput
+                type="passowrd"
+                onChange={(e) =>
+                  setstate({ ...state, passowrd: e.target.value })
+                }
+                placeholder="Password"
+                style={{ height: "34px" }}
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="outlined" size="small">
+              Login
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+      {/* signup */}
+      {/* login dialog */}
+      <Box>
+        <Dialog open={signupdialog} onClose={() => setsignupdialog(false)}>
+          <DialogTitle>
+            <Box textAlign="center" mt={4}>
+              <Typography variant="h5">Sign up</Typography>
+            </Box>{" "}
+            <IconButton
+              style={{ marginLeft: "180px", marginTop: "-140px" }}
+              onClick={() => setsignupdialog(false)}
+            >
+              <Close />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <Box mb={2}>
+              <OutlinedInput
+                onChange={(e) =>
+                  setstate({ ...state, username: e.target.value })
+                }
+                placeholder="Username"
+                style={{ height: "34px" }}
+              />
+            </Box>
+            <Box mb={2}>
+              <OutlinedInput
+                type="email"
+                onChange={(e) => setstate({ ...state, email: e.target.value })}
+                placeholder="Email"
+                style={{ height: "34px" }}
+              />
+            </Box>
+            <Box mb={2}>
+              <OutlinedInput
+                type="Password"
+                onChange={(e) =>
+                  setstate({ ...state, password: e.target.value })
+                }
+                placeholder="email"
+                style={{ height: "34px" }}
+              />
+            </Box>
+            <Box mb={2}>
+              <OutlinedInput
+                type="passowrd"
+                onChange={(e) =>
+                  setstate({ ...state, cpassowrd: e.target.value })
+                }
+                placeholder="Confirm Password"
+                style={{ height: "34px" }}
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="outlined" size="small">
+              Signup
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
     </div>
   );
 };
