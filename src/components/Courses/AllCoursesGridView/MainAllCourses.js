@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from "react-router-dom"
 import {
   Grid,
   Box,
@@ -11,7 +12,7 @@ import {
   makeStyles,
   Button,
 } from "@material-ui/core";
-import { CastForEducation, Person, Star } from "@material-ui/icons";
+import {  CastForEducation, Person, Star } from "@material-ui/icons";
 import { yellow } from "@material-ui/core/colors";
 import dummyimg from "../../../images/img4.jpg";
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const PopularCourses = () => {
   const classes = useStyles();
-  
+  const history = useHistory()
   return (
     <div>
-       
+     
+      
       {/* cards */}
       <Box my={3} textAlign="center">
         <Container maxWidth="md">

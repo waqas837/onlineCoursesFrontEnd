@@ -17,6 +17,8 @@ import BecomePartner from "./components/Home/BecomePartner/BecomePartner";
 import Footer from "./components/Home/Footer/Footer";
 import AllCourses from "./components/Courses/AllCourses";
 import ShowSingleCourseDetails from "./components/Courses/ShowSingleCourseDetails/ShowSingleCourseDetails";
+import AboutUs from "./components/AboutUsPage/AboutUs";
+import Contact from "./components/ContactUsPage/Contact";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -55,8 +57,23 @@ function App() {
        <Footer/>
        </Route>
        <Route exact path="/courses/showPrices">
+       <ScrollToTopButton />
        <Navbar/>
        <ShowSingleCourseDetails/>
+       <Footer/>
+       </Route>
+       {/* about route */}
+       <Route exact path="/about">
+       <ScrollToTopButton />
+       <Navbar/>
+       <AboutUs/>
+       <Footer/>
+       </Route>
+        {/* contact route */}
+        <Route exact path="/contactus">
+       <ScrollToTopButton />
+       <Navbar/>
+       <Contact/>
        <Footer/>
        </Route>
         </Router>

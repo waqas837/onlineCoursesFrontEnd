@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
+import { useHistory } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -45,6 +46,7 @@ import {
   Twitter,
   YouTube,
   LinkedIn,
+  ArrowRight,
 } from "@material-ui/icons";
 import { grey, yellow } from "@material-ui/core/colors";
 import Cards from "../../Cards";
@@ -52,6 +54,7 @@ import Cards from "../../Cards";
 const ShowSingleCourseDetails = () => {
   const classes = useStyles();
   const [check, setcheck] = useState(false);
+  const history = useHistory();
   const [stars, setstars] = useState();
   // submit raings
   const sumbitRatings = () => {
@@ -175,6 +178,46 @@ const ShowSingleCourseDetails = () => {
   }
   return (
     <div>
+      <div
+        className={classes.image}
+        style={{
+          backgroundImage: `url(${dummyimg})`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          height: "200px",
+          boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.7)",
+        }}
+      >
+        <Box pt={12} textAlign="center">
+          <Typography
+            variant="h5"
+            style={{ color: "white", fontWeight: "bolder" }}
+          >
+            All Courses
+          </Typography>
+          <Box>
+            <Typography
+              variant="body2"
+              className={classes.home}
+              onClick={() => history.push("/")}
+            >
+              <ArrowRight id="icon" /> Home
+            </Typography>
+            <Typography
+              variant="body2"
+              className={classes.home}
+              onClick={() => history.push("/courses")}
+            >
+              <ArrowRight id="icon" />
+              All Courses
+            </Typography>
+            <Typography variant="body2" className={classes.perviewCourse}>
+              <ArrowRight id="icon" /> Perview Course
+            </Typography>
+          </Box>
+        </Box>
+      </div>
       <Container>
         <Box mt={10} mb={4}>
           <Paper elevation={5} className={classes.paper}>

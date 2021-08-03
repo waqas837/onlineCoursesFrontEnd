@@ -4,9 +4,9 @@ import {
   Home,
   CloseOutlined,
   PhoneInTalk,
-  Hotel,
   Book,
   MenuBook,
+  ExitToApp,
 } from "@material-ui/icons";
 import {
   Divider,
@@ -68,7 +68,6 @@ const Drawer = ({ opendrawer, setopendrawer }) => {
             button
             component={NavLink}
             to="/courses"
-            exact
             activeClassName={classes.activeLink}
           >
             <ListItemIcon>
@@ -77,20 +76,45 @@ const Drawer = ({ opendrawer, setopendrawer }) => {
             <ListItemText primary="Courses" />
           </ListItem>
 
-          {/* blogs*/}
-          <ListItem button>
+          {/* About*/}
+          <ListItem
+            button
+            component={NavLink}
+            to="/about"
+            exact
+            activeClassName={classes.activeLink}
+          >
             <ListItemIcon>
               <Book />
             </ListItemIcon>
-            <ListItemText primary="Blogs" />
+            <ListItemText primary="About Us" />
           </ListItem>
 
           {/* contact*/}
-          <ListItem button>
+          <ListItem
+            button
+            component={NavLink}
+            to="/contactus"
+            exact
+            activeClassName={classes.activeLink}
+          >
             <ListItemIcon>
               <PhoneInTalk />
             </ListItemIcon>
             <ListItemText primary="Contact" />
+          </ListItem>
+          {/* Login*/}
+          <ListItem
+            button
+            // component={NavLink}
+            // to="/login"
+            // exact
+            // activeClassName={classes.activeLink}
+          >
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+            <ListItemText primary="Login" />
           </ListItem>
         </List>
       </SwipeableDrawer>

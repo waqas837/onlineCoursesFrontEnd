@@ -11,9 +11,8 @@ import {
   makeStyles,
   Toolbar,
 } from "@material-ui/core";
-import { ExpandMore, Menu } from "@material-ui/icons";
+import {  Menu } from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
-var Maingrey = grey[400];
 var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -82,9 +81,9 @@ const useStyles = makeStyles((theme) => ({
   },
   activeLink: {
     borderBottom: `2px solid ${MainSecondary}`,
-    color:MainSecondary,
+    color: MainSecondary,
     borderRadius: "0px",
-    background:grey[100]
+    background: grey[100],
   },
   text: {
     fontWeight: "bold",
@@ -190,7 +189,7 @@ const Navbar = () => {
               to="/"
               exact
               activeClassName={classes.activeLink}
-              style={{fontSize:"12px"}}
+              style={{ fontSize: "12px" }}
             >
               Home
             </Button>
@@ -198,15 +197,28 @@ const Navbar = () => {
               component={NavLink}
               to="/courses"
               activeClassName={classes.activeLink}
-              style={{fontSize:"12px"}}
+              style={{ fontSize: "12px" }}
               size="small"
-              endIcon={<ExpandMore />}
-            >
+             >
               Courses
             </Button>
-            <Button style={{fontSize:"12px"}} size="small">Blog</Button>
-            <Button style={{fontSize:"12px"}} size="small">About</Button>
-            <Button style={{fontSize:"12px"}} size="small">Contact</Button>
+             
+            <Button
+              style={{ fontSize: "12px" }}
+              component={NavLink}
+              to="/about"
+              activeClassName={classes.activeLink}
+              size="small"
+            >
+              About
+            </Button>
+            <Button
+              component={NavLink}
+              to="/contactus"
+              activeClassName={classes.activeLink}
+             style={{ fontSize: "12px" }} size="small">
+              Contact
+            </Button>
           </Box>
           <Box className={classes.hideNavigationForSmallScreen}>
             <Button

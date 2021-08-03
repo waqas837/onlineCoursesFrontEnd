@@ -109,7 +109,7 @@ const AllCoursesLists = ({ match }) => {
               <Box my={3}>
                 {/* fist hidden element */}
                 <Hidden only={["xs", "sm"]}>
-                  <Card style={{ textAlign: "center" }}>
+                  <Card style={{ textAlign: "center" }} onClick={showPrices}>
                     <CardActionArea
                       className={classes.CardimgResp}
                       style={{ display: "flex" }}
