@@ -21,7 +21,7 @@ const Contact = () => {
   const history = useHistory();
   return (
     <div>
-      <Box mt={8}>
+      <Box mt={7}>
         <div
           className={classes.image}
           style={{

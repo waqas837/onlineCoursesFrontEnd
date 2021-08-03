@@ -8,8 +8,8 @@ const useStyels = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       color: "white",
       position: "relative",
-      top: "310px",
-      left: "-120px",
+      top: "290px",
+      left: "-70px",
     },
   },
   heading2: {
@@ -21,8 +21,8 @@ const useStyels = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       color: "white",
       position: "relative",
-      top: "300px",
-      left: "-60px",
+      top: "280px",
+      left: "-40px",
       fontWeight: "bolder",
     },
   },
