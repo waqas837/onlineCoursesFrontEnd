@@ -9,7 +9,7 @@ const useStyels = makeStyles((theme) => ({
       color: "white",
       position: "relative",
       top: "310px",
-      left: "-180px",
+      left: "-120px",
     },
   },
   heading2: {
@@ -22,7 +22,7 @@ const useStyels = makeStyles((theme) => ({
       color: "white",
       position: "relative",
       top: "300px",
-      left: "-120px",
+      left: "-60px",
       fontWeight: "bolder",
     },
   },

@@ -1,5 +1,5 @@
 {
-  "name": "tender-app",
+  "name": "learnonlinecourses",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:1000",
