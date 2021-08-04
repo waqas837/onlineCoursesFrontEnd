@@ -1,2 +1,2 @@
-const url = "http://localhost:1000";
-export { url };
+const userApi = "http://localhost:1000/user";
+export { userApi };

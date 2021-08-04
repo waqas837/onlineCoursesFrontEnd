@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 import logo from "../../../images/logo.jpeg";
 import Drawer from "../Drawer/Drawer";
 import {
@@ -16,10 +18,12 @@ import {
   OutlinedInput,
   Toolbar,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { Close, Menu } from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
-import MainDialog from "../../MainDialog";
+import toast, { Toaster } from 'react-hot-toast';
+import { userApi } from "../../../Api";
 var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -164,17 +168,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  axios.defaults.withCredentials = true;
   const classes = useStyles();
   const [loginDialog, setloginDialog] = useState(false);
   const [signupdialog, setsignupdialog] = useState(false);
   const [state, setstate] = useState([]);
-  console.log(state);
+  const [progress, setprogress] = useState(false);
+  const [loading, setloading] = useState(null);
+  const [preventRefresh, setpreventRefresh] = useState(null);
+  useEffect(() => {}, [preventRefresh]);
+  //logout
+  const logout = () => {
+    Cookies.remove("user", { path: "/" });
+    setpreventRefresh(!preventRefresh);
+  };
   // login dialog open
   const openLoginDialog = () => {
     setloginDialog(true);
   };
+  // signup now'
+  const signup = async () => {
+    try {
+      setprogress(true);
+      setloading(true);
+      const { data } = await axios.post(`${userApi}/signup`, state);
+      console.log(data);
+      setsignupdialog(false);
+      setloading(false);
+      setprogress(false);
+    } catch (error) {
+      setloading(false);
+      setprogress(false);
+      console.log(error);
+    }
+  };
   // login Now'
-  const login = () => {};
+  const login = async () => {
+    try {
+      setprogress(true);
+      setloading(true);
+      const { data } = await axios.post(`${userApi}/login`, state);
+      console.log(data);
+      setloginDialog(false);
+      setloading(false);
+      setprogress(false);
+    } catch (error) {
+      setloading(false);
+      setprogress(false);
+      console.log(error);
+    }
+  };
   const [opendrawer, setopendrawer] = useState(false);
   return (
     <div>
@@ -239,24 +282,32 @@ const Navbar = () => {
             </Button>
           </Box>
           <Box className={classes.hideNavigationForSmallScreen}>
-            <Button
-              className={classes.buttonStyle}
-              variant="contained"
-              color="secondary"
-              style={{ boxShadow: "none" }}
-              onClick={openLoginDialog}
-            >
-              Login
-            </Button>
-            <Button
-              className={classes.buttonStyleOutlined}
-              size="small"
-              variant="outlined"
-              color="secondary"
-              onClick={() => setsignupdialog(true)}
-            >
-              Signup
-            </Button>
+            {Cookies.get("user") ? (
+              <Button variant="outlined" size="small" onClick={logout}>
+                Logout
+              </Button>
+            ) : (
+              <div>
+                <Button
+                  className={classes.buttonStyle}
+                  variant="contained"
+                  color="secondary"
+                  style={{ boxShadow: "none" }}
+                  onClick={openLoginDialog}
+                >
+                  Login
+                </Button>
+                <Button
+                  className={classes.buttonStyleOutlined}
+                  size="small"
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => setsignupdialog(true)}
+                >
+                  Signup
+                </Button>
+              </div>
+            )}
           </Box>
           <Hidden only={["xl", "lg", "md"]}>
             <Box ml="auto">
@@ -292,9 +343,9 @@ const Navbar = () => {
             </Box>
             <Box mb={2}>
               <OutlinedInput
-                type="passowrd"
+                type="password"
                 onChange={(e) =>
-                  setstate({ ...state, passowrd: e.target.value })
+                  setstate({ ...state, password: e.target.value })
                 }
                 placeholder="Password"
                 style={{ height: "34px" }}
@@ -302,14 +353,13 @@ const Navbar = () => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button variant="outlined" size="small">
+            <Button onClick={login} variant="outlined" size="small">
               Login
             </Button>
           </DialogActions>
         </Dialog>
       </Box>
-      {/* signup */}
-      {/* login dialog */}
+      {/* signup dialog */}
       <Box>
         <Dialog open={signupdialog} onClose={() => setsignupdialog(false)}>
           <DialogTitle>
@@ -347,15 +397,15 @@ const Navbar = () => {
                 onChange={(e) =>
                   setstate({ ...state, password: e.target.value })
                 }
-                placeholder="email"
+                placeholder="Password"
                 style={{ height: "34px" }}
               />
             </Box>
             <Box mb={2}>
               <OutlinedInput
-                type="passowrd"
+                type="password"
                 onChange={(e) =>
-                  setstate({ ...state, cpassowrd: e.target.value })
+                  setstate({ ...state, cpassword: e.target.value })
                 }
                 placeholder="Confirm Password"
                 style={{ height: "34px" }}
@@ -363,12 +413,17 @@ const Navbar = () => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button variant="outlined" size="small">
+            <Button onClick={signup} variant="outlined" size="small">
               Signup
             </Button>
           </DialogActions>
         </Dialog>
       </Box>
+      <Dialog open={progress} onClose={() => setprogress(false)}>
+        <DialogTitle>
+          {loading && <CircularProgress color="secondary" />}
+        </DialogTitle>
+      </Dialog>
     </div>
   );
 };

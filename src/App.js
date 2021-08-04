@@ -19,6 +19,7 @@ import AllCourses from "./components/Courses/AllCourses";
 import ShowSingleCourseDetails from "./components/Courses/ShowSingleCourseDetails/ShowSingleCourseDetails";
 import AboutUs from "./components/AboutUsPage/AboutUs";
 import Contact from "./components/ContactUsPage/Contact";
+import ApiTestOptimization from "./components/ApiTestOptimization";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -75,6 +76,11 @@ function App() {
        <Navbar/>
        <Contact/>
        <Footer/>
+       </Route>
+       {/* api rest response */}
+        {/* contact route */}
+        <Route exact path="/apiTest">
+       <ApiTestOptimization/>
        </Route>
         </Router>
       </ThemeProvider>
