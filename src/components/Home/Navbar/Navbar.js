@@ -22,7 +22,7 @@ import {
 } from "@material-ui/core";
 import { Close, Menu } from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { userApi } from "../../../Api";
 var MainSecondary = "rgb(233,30,99)";
 const useStyles = makeStyles((theme) => ({
@@ -173,14 +173,20 @@ const Navbar = () => {
   const [loginDialog, setloginDialog] = useState(false);
   const [signupdialog, setsignupdialog] = useState(false);
   const [state, setstate] = useState([]);
+  const [state2, setstate2] = useState([]);
   const [progress, setprogress] = useState(false);
   const [loading, setloading] = useState(null);
   const [preventRefresh, setpreventRefresh] = useState(null);
   useEffect(() => {}, [preventRefresh]);
+  console.log(state2);
   //logout
   const logout = () => {
+    setloading(true);
+    setprogress(true);
     Cookies.remove("user", { path: "/" });
     setpreventRefresh(!preventRefresh);
+    setloading(false);
+    setprogress(false);
   };
   // login dialog open
   const openLoginDialog = () => {
@@ -188,14 +194,23 @@ const Navbar = () => {
   };
   // signup now'
   const signup = async () => {
+    if (state2.username === undefined) {
+      toast.error(`Username is required`);
+    } else if (state2.email === undefined) {
+      toast.error(`Email is required`);
+    } else if (state2.password !== state2.cpassword) {
+      toast.error(`Password and confirm password must be same`);
+    }
     try {
       setprogress(true);
       setloading(true);
-      const { data } = await axios.post(`${userApi}/signup`, state);
-      console.log(data);
+      const { data } = await axios.post(`${userApi}/signup`, state2);
+      if (data.userExists) {
+        toast.error(`${data.userExists}`);
+      }
       setsignupdialog(false);
-      setloading(false);
       setprogress(false);
+      setloading(false);
     } catch (error) {
       setloading(false);
       setprogress(false);
@@ -205,22 +220,29 @@ const Navbar = () => {
   // login Now'
   const login = async () => {
     try {
-      setprogress(true);
       setloading(true);
+      setprogress(true);
       const { data } = await axios.post(`${userApi}/login`, state);
-      console.log(data);
+      if (data.invalidUser) {
+        toast.error(`${data.invalidUser}`);
+        //success logged in message
+      } else if (data.message) {
+        toast.success(`${data.message}`);
+      }
       setloginDialog(false);
-      setloading(false);
       setprogress(false);
+      setloading(false);
     } catch (error) {
       setloading(false);
       setprogress(false);
       console.log(error);
+      toast.error("Invalid username or password");
     }
   };
   const [opendrawer, setopendrawer] = useState(false);
   return (
     <div>
+      <Toaster />
       <AppBar
         position="fixed"
         color="inherit"
@@ -318,7 +340,13 @@ const Navbar = () => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <Drawer opendrawer={opendrawer} setopendrawer={setopendrawer} />
+      <Drawer
+        opendrawer={opendrawer}
+        setopendrawer={setopendrawer}
+        setloginDialog={setloginDialog}
+        setsignupdialog={setsignupdialog}
+        logout={logout}
+      />
       {/* login dialog */}
       <Box>
         <Dialog open={loginDialog} onClose={() => setloginDialog(false)}>
@@ -377,7 +405,7 @@ const Navbar = () => {
             <Box mb={2}>
               <OutlinedInput
                 onChange={(e) =>
-                  setstate({ ...state, username: e.target.value })
+                  setstate2({ ...state2, username: e.target.value })
                 }
                 placeholder="Username"
                 style={{ height: "34px" }}
@@ -386,7 +414,9 @@ const Navbar = () => {
             <Box mb={2}>
               <OutlinedInput
                 type="email"
-                onChange={(e) => setstate({ ...state, email: e.target.value })}
+                onChange={(e) =>
+                  setstate2({ ...state2, email: e.target.value })
+                }
                 placeholder="Email"
                 style={{ height: "34px" }}
               />
@@ -395,7 +425,7 @@ const Navbar = () => {
               <OutlinedInput
                 type="Password"
                 onChange={(e) =>
-                  setstate({ ...state, password: e.target.value })
+                  setstate2({ ...state2, password: e.target.value })
                 }
                 placeholder="Password"
                 style={{ height: "34px" }}
@@ -405,7 +435,7 @@ const Navbar = () => {
               <OutlinedInput
                 type="password"
                 onChange={(e) =>
-                  setstate({ ...state, cpassword: e.target.value })
+                  setstate2({ ...state2, cpassword: e.target.value })
                 }
                 placeholder="Confirm Password"
                 style={{ height: "34px" }}

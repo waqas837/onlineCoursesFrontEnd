@@ -7,6 +7,8 @@ import {
   Book,
   MenuBook,
   ExitToApp,
+  VpnKey,
+  ExitToAppOutlined,
 } from "@material-ui/icons";
 import {
   Divider,
@@ -20,6 +22,7 @@ import {
 } from "@material-ui/core";
 import logo from "../../../images/logo.jpeg";
 import { grey } from "@material-ui/core/colors";
+import Cookies from "js-cookie";
 var MainSecondary = "rgb(233,30,99)";
 // main
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +32,13 @@ const useStyles = makeStyles((theme) => ({
     background: grey[100],
   },
 }));
-const Drawer = ({ opendrawer, setopendrawer }) => {
+const Drawer = ({
+  opendrawer,
+  setopendrawer,
+  setloginDialog,
+  setsignupdialog,
+  logout,
+}) => {
   const classes = useStyles();
   return (
     <div>
@@ -103,19 +112,30 @@ const Drawer = ({ opendrawer, setopendrawer }) => {
             </ListItemIcon>
             <ListItemText primary="Contact" />
           </ListItem>
-          {/* Login*/}
-          <ListItem
-            button
-            // component={NavLink}
-            // to="/login"
-            // exact
-            // activeClassName={classes.activeLink}
-          >
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-            <ListItemText primary="Login" />
-          </ListItem>
+          {Cookies.get("user") ? (
+            <ListItem button onClick={logout}>
+              <ListItemIcon>
+                <ExitToAppOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
+          ) : (
+            <div>
+              <ListItem button onClick={() => setsignupdialog(true)}>
+                <ListItemIcon>
+                  <VpnKey />
+                </ListItemIcon>
+                <ListItemText primary="Sign Up" />
+              </ListItem>
+
+              <ListItem button onClick={() => setloginDialog(true)}>
+                <ListItemIcon>
+                  <ExitToApp />
+                </ListItemIcon>
+                <ListItemText primary="Login" />
+              </ListItem>
+            </div>
+          )}
         </List>
       </SwipeableDrawer>
     </div>
