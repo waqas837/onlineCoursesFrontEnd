@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import handcr from "../../images/afaaq bhai.jpg";
 import {
+  Box,
   Container,
   Drawer,
   List,
@@ -9,6 +11,8 @@ import {
   ListItemText,
   makeStyles,
   Tooltip,
+  Typography,
+  IconButton,
 } from "@material-ui/core";
 import {
   AssignmentLate,
@@ -19,24 +23,34 @@ import {
   FormatListBulleted,
   Comment,
   FindInPage,
+  MoreVert,
 } from "@material-ui/icons";
-import { grey, yellow } from "@material-ui/core/colors";
- const useStyles = makeStyles((theme) => ({
+import {
+  brown,
+  green,
+  grey,
+  pink,
+  purple,
+  red,
+  teal,
+  yellow,
+} from "@material-ui/core/colors";
+const useStyles = makeStyles((theme) => ({
   drawer: {
     marginTop: "61px",
-    background:"rgb(24,29,30)",
-    padding:10,
-    paddingLeft:0
+    background: "rgb(24,29,30)",
+    padding: 10,
+    paddingLeft: 0,
   },
   marginListItems: {
     marginBottom: "10px",
   },
   activeLink: {
-    background: "rgb(16,16,22)",
+    background: "black",
     borderLeft: `3px solid rgb(0,143,229)`,
-    borderTopRightRadius:30,
-    borderBottomRightRadius:30,
-    color:grey[200]
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    color: grey[200],
   },
 }));
 const FixedDrawer = () => {
@@ -51,6 +65,32 @@ const FixedDrawer = () => {
           classes={{ paper: classes.drawer }}
         >
           <List>
+            {/* user image */}
+            <Box display="flex" justifyContent="space-around">
+              <img
+                src={handcr}
+                width="40px"
+                height="40px"
+                style={{ borderRadius: "100px", marginLeft: "5px" }}
+                variant="body1"
+                alt=""
+              />
+              <Typography variant="subtitle1" style={{ color: "white" }}>
+                Afaq bhai <br />
+                <Typography variant="caption" style={{ color: "white" }}>
+                  Sales Manager
+                </Typography>
+              </Typography>
+              <IconButton>
+                <MoreVert style={{ color: yellow[900]}} />
+              </IconButton>
+            </Box>
+            {/* some headings */}
+            <Box textAlign="center" my={3}>
+              <Typography variant="h6" style={{ color: "white" }}>
+                Navigations
+              </Typography>
+            </Box>
             {/* item 1 */}
             <Tooltip title="Dashboard" arrow>
               <ListItem
@@ -62,7 +102,7 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <Dashboard fontSize="small" style={{color:"#2196f3"}}/>
+                  <Dashboard fontSize="small" style={{ color: "#2196f3" }} />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
@@ -79,9 +119,9 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <Person fontSize="small" style={{color:yellow[200]}}/>
+                  <Person fontSize="small" style={{ color: yellow[200] }} />
                 </ListItemIcon>
-                <ListItemText primary="Users" style={{color:grey[400]}} />
+                <ListItemText primary="Users" style={{ color: grey[400] }} />
               </ListItem>
             </Tooltip>
             {/* item 3 */}
@@ -95,9 +135,12 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <FormatListBulleted fontSize="small" />
+                  <FormatListBulleted
+                    fontSize="small"
+                    style={{ color: red[400] }}
+                  />
                 </ListItemIcon>
-                <ListItemText primary="Courses" />
+                <ListItemText primary="Courses" style={{ color: grey[400] }} />
               </ListItem>
             </Tooltip>
             {/* item 4 */}
@@ -111,9 +154,15 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <LocalActivity fontSize="small" />
+                  <LocalActivity
+                    fontSize="small"
+                    style={{ color: green[400] }}
+                  />
                 </ListItemIcon>
-                <ListItemText primary="New Courses" />
+                <ListItemText
+                  primary="New Courses"
+                  style={{ color: grey[400] }}
+                />
               </ListItem>
             </Tooltip>
             {/* item 5*/}
@@ -127,9 +176,9 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <FindInPage fontSize="small" />
+                  <FindInPage fontSize="small" style={{ color: pink[400] }} />
                 </ListItemIcon>
-                <ListItemText primary="Teachers" />
+                <ListItemText primary="Teachers" style={{ color: grey[400] }} />
               </ListItem>
             </Tooltip>
             {/* item 6 */}
@@ -143,9 +192,15 @@ const FixedDrawer = () => {
                 className={classes.marginListItems}
               >
                 <ListItemIcon>
-                  <AssignmentLate fontSize="small" />
+                  <AssignmentLate
+                    fontSize="small"
+                    style={{ color: teal[400] }}
+                  />
                 </ListItemIcon>
-                <ListItemText primary="Search By Rates" />
+                <ListItemText
+                  primary="Search By Rates"
+                  style={{ color: grey[400] }}
+                />
               </ListItem>
             </Tooltip>
             {/* Comment item 7 */}
@@ -159,9 +214,12 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <Comment fontSize="small" />
+                  <Comment fontSize="small" style={{ color: purple[400] }} />
                 </ListItemIcon>
-                <ListItemText primary="Experienced Teachers" />
+                <ListItemText
+                  primary="Experienced Teachers"
+                  style={{ color: grey[400] }}
+                />
               </ListItem>
             </Tooltip>
             {/* Comment item 8 */}
@@ -175,9 +233,15 @@ const FixedDrawer = () => {
                 activeClassName={classes.activeLink}
               >
                 <ListItemIcon>
-                  <NotificationsActive fontSize="small" />
+                  <NotificationsActive
+                    fontSize="small"
+                    style={{ color: brown[400] }}
+                  />
                 </ListItemIcon>
-                <ListItemText primary="Courses Categories" />
+                <ListItemText
+                  primary="Courses Categories"
+                  style={{ color: grey[400] }}
+                />
               </ListItem>
             </Tooltip>
           </List>

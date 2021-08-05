@@ -88,7 +88,7 @@ const Navbar = () => {
         position="static"
         color="inherit"
         elevation={1}
-        style={{ height: "60px" }}
+        style={{ height: "60px" , background: "rgb(24,29,30)"}}
       >
         <Toolbar>
           <IconButton
