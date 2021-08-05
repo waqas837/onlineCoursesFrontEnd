@@ -20,6 +20,7 @@ import ShowSingleCourseDetails from "./components/Courses/ShowSingleCourseDetail
 import AboutUs from "./components/AboutUsPage/AboutUs";
 import Contact from "./components/ContactUsPage/Contact";
 import ApiTestOptimization from "./components/ApiTestOptimization";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -81,6 +82,10 @@ function App() {
         {/* contact route */}
         <Route exact path="/apiTest">
        <ApiTestOptimization/>
+       </Route>
+       {/* admin dashboard */}
+       <Route exact path="/admin">
+       <AdminDashboard/>
        </Route>
         </Router>
       </ThemeProvider>

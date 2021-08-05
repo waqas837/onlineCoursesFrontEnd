@@ -259,7 +259,7 @@ const Navbar = () => {
             <img src={logo} width="60px" height="55px" alt="" />
           </IconButton>
           {/* create spacing */}
-          <Box className={classes.searchIcon}>/</Box>
+          <Box className={classes.searchIcon}></Box>
           <Box className={classes.search}></Box>
           {/* main navigations */}
 
