@@ -21,6 +21,7 @@ import AboutUs from "./components/AboutUsPage/AboutUs";
 import Contact from "./components/ContactUsPage/Contact";
 import ApiTestOptimization from "./components/ApiTestOptimization";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import UserList from "./components/AdminDashboard/UserList"
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -35,58 +36,63 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <Router>
-        {/* Home route*/}
-       <Route exact path="/">
-       <ScrollToTopButton />
-        <Navbar />
-        <TeacherForm />
-        <CourseCategory />
-        <AboutOurCompany />
-        <PopularCourses />
-        <Calcluations />
-        <FeaturedInstructors />
-        <UpcomingEvents />
-        <LatestNews />
-        <OurSponsers />
-        <BecomePartner />
-        <Footer/>
-       </Route>
-       {/* Courses Route */}
-       <Route exact path="/courses">
-       <ScrollToTopButton />
-       <Navbar/>
-       <AllCourses/>
-       <Footer/>
-       </Route>
-       <Route exact path="/courses/showPrices">
-       <ScrollToTopButton />
-       <Navbar/>
-       <ShowSingleCourseDetails/>
-       <Footer/>
-       </Route>
-       {/* about route */}
-       <Route exact path="/about">
-       <ScrollToTopButton />
-       <Navbar/>
-       <AboutUs/>
-       <Footer/>
-       </Route>
-        {/* contact route */}
-        <Route exact path="/contactus">
-       <ScrollToTopButton />
-       <Navbar/>
-       <Contact/>
-       <Footer/>
-       </Route>
-       {/* api rest response */}
-        {/* contact route */}
-        <Route exact path="/apiTest">
-       <ApiTestOptimization/>
-       </Route>
-       {/* admin dashboard */}
-       <Route exact path="/admin">
-       <AdminDashboard/>
-       </Route>
+          {/* Home route*/}
+          <Route exact path="/">
+            <ScrollToTopButton />
+            <Navbar />
+            <TeacherForm />
+            <CourseCategory />
+            <AboutOurCompany />
+            <PopularCourses />
+            <Calcluations />
+            <FeaturedInstructors />
+            <UpcomingEvents />
+            <LatestNews />
+            <OurSponsers />
+            <BecomePartner />
+            <Footer />
+          </Route>
+          {/* Courses Route */}
+          <Route exact path="/courses">
+            <ScrollToTopButton />
+            <Navbar />
+            <AllCourses />
+            <Footer />
+          </Route>
+          <Route exact path="/courses/showPrices">
+            <ScrollToTopButton />
+            <Navbar />
+            <ShowSingleCourseDetails />
+            <Footer />
+          </Route>
+          {/* about route */}
+          <Route exact path="/about">
+            <ScrollToTopButton />
+            <Navbar />
+            <AboutUs />
+            <Footer />
+          </Route>
+          {/* contact route */}
+          <Route exact path="/contactus">
+            <ScrollToTopButton />
+            <Navbar />
+            <Contact />
+            <Footer />
+          </Route>
+          {/* api rest response */}
+          {/* contact route */}
+          <Route exact path="/apiTest">
+            <ApiTestOptimization />
+          </Route>
+          
+          {/* admin dashboard */}
+          <Route exact path="/admin">
+            <AdminDashboard />
+          </Route>
+          {/* users to admin */}
+          <Route exact path="/admin/users">
+            <UserList/>
+          </Route>
         </Router>
       </ThemeProvider>
     </div>

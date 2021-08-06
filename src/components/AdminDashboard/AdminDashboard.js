@@ -1,14 +1,13 @@
-import React from 'react'
-import Navbar from "./Navbar"
-import FixedDrawer from "./FixedDrawer"
-import {useStyles} from "./Main.Styles"
+import React from "react";
+import Navbar from "./Navbar";
+import FixedDrawer from "./FixedDrawer";
 const AdminDashboard = () => {
-    return (
-        <div>
-             <Navbar/>
-             <FixedDrawer/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Navbar />
+      <FixedDrawer />
+    </div>
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;

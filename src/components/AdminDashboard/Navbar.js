@@ -1,5 +1,5 @@
-import React from "react";
-import { MainCyan, Maingrey } from "./Main.Styles";
+import React, { useState } from "react";
+import { MainSecondary, Maingrey } from "./Main.Styles";
 import { NavLink } from "react-router-dom";
 import FixedDrawer from "./FixedDrawer";
 import {
@@ -75,33 +75,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   activeLink: {
-    borderBottom: `2px solid ${MainCyan}`,
+    borderBottom: `2px solid ${MainSecondary}`,
     borderRadius: "0px",
   },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
+  const [open,setopen] = useState(false);
   return (
     <div>
       <AppBar
-        position="static"
+        position="fixed"
         color="inherit"
         elevation={1}
         style={{ height: "60px" , background: "rgb(24,29,30)"}}
       >
         <Toolbar>
           <IconButton
+            onClick={()=>setopen(!open)}
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
-            <Menu style={{ color: Maingrey }} />
+            <Menu style={{ color: MainSecondary }} />
           </IconButton>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <Search style={{ color: Maingrey }} />
+              <Search style={{ color: MainSecondary }} />
             </div>
             <InputBase
               placeholder="Search…"
@@ -126,13 +128,13 @@ const Navbar = () => {
                 exact
                 activeClassName={classes.activeLink}
               >
-                <Settings fontSize="small" style={{ color: MainCyan }} />
+                <Settings fontSize="small" style={{ color: MainSecondary }} />
               </IconButton>
             </Tooltip>
           </Box>
         </Toolbar>
       </AppBar>
-      <FixedDrawer />
+      <FixedDrawer open={open} setopen={setopen}/>
     </div>
   );
 };
