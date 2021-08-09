@@ -1,25 +1,26 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
-import axios from "axios";
-
+import React, { useCallback, useEffect, useState } from "react";
+import List from "./List";
 const ApiTestOptimization = () => {
-  const refObj = useRef(false);
-  const [state, setstate] = useState(null);
+  const [state, sestate] = useState(null); //hooks
+  //perfect example of useCallback hook
+  const changestate = () => {
+    sestate(!state);
+  };
+  //tells that our component is re-rendered;
+  //state 
   useEffect(() => {
-    apicall();
-  }, []);
-   const apicall = useCallback(async () => {
-    if (refObj.current === false) {
-      console.log("api fetched");
-      let { data } = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos/1"
-      );
-      refObj.current = true;
-      setstate(data);
-    }
-  }, []);
-
-  console.log(state);
-  return <div> </div>;
+    console.log("Parent is rendered");
+  }, [state]);
+  let a = 4;
+  const values = () => {
+    return [a, a + 1, a + 2];
+  };
+  return (
+    <div>
+      <button onClick={changestate}>Change theme</button>
+      {/* <List values={values} /> */}
+    </div>
+  );
 };
 
 export default ApiTestOptimization;

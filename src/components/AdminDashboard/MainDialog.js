@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import mapimg from "../../images/locationimage.png";
 import dummyimg from "../../images/download.jpg";
 import {
@@ -17,9 +17,17 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Tooltip,
 } from "@material-ui/core";
-import { EmailOutlined, HighlightOff } from "@material-ui/icons";
+import {
+  AddCircleOutline,
+  EmailOutlined,
+  HighlightOff,
+} from "@material-ui/icons";
 import { MainSecondary, useStyles } from "./Main.Styles";
+import axios from "axios";
+import { userApi, coursesApi } from "../../Api";
+import CustomizationDialog from "./CustomizationDialog";
 // just remember that: if postCheck is true it will add a post ,else edit a post
 const AddAndEditMemberDialog = ({
   open,
@@ -28,13 +36,64 @@ const AddAndEditMemberDialog = ({
   post,
   comment,
   member,
+  userData,
 }) => {
-  console.log(member);
   const classes = useStyles();
-  // console.log(postCheck);
   const [age, setAge] = React.useState("");
+  const [CourseUploadDialog, setCourseUploadDialog] = React.useState(null);
+  const [insImage, setinsImage] = React.useState(null);
+  const [customizeValue, setcustomizeValue] = React.useState("NoSelection");
+  const [state, setstate] = React.useState([]);
+  const [openCustomize, setopenCustomize] = React.useState(false);
+  const [showCourses, setshowCourses] = React.useState([]);
+  const [showLanguages, setshowLanguages] = React.useState([]);
+  
+  // var userCheck = "AddCourse";
+  // // always call an api in useEffect
+  // useEffect(() => {
+  //   fetchCourseAndLanguagesDB();
+  // }, [userCheck]);
+  axios.defaults.withCredentials = true;
+  
+  //Fetch fetchCourseDB
+  const fetchCourseAndLanguagesDB = async () => {
+    try {
+      const { data } = await axios.get(`${coursesApi}/defaultCourses`);
+      // console.log(data)
+      setshowCourses(data.newData[0].courselevel.map((val) => val));
+      setshowLanguages(data.newData[0].language.map((val) => val));
+      // console.log(data.data.language);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // // update user
+  // const udpateUser = async (userId) => {
+  //   try {
+  //     const { data } = await axios.patch(
+  //       `${userApi}/updateUser/${userId}`,
+  //       state
+  //     );
+  //     if (data) {
+  //       setopen(false);
+  //       window.location.reload();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const handleChange = (event) => {
     setAge(event.target.value);
+  };
+  //course customization
+  const courseCustomization = () => {
+    setopenCustomize(true);
+    setcustomizeValue("courseCustomize");
+  };
+  //language customization
+  const languageCustomization = () => {
+    setopenCustomize(true);
+    setcustomizeValue("languageCustomize");
   };
   return (
     <div>
@@ -67,6 +126,13 @@ const AddAndEditMemberDialog = ({
               return (
                 <Typography style={{ fontWeight: "bold" }} variant="h6">
                   Add User
+                </Typography>
+              );
+            }
+            if (user === "AddCourse") {
+              return (
+                <Typography style={{ fontWeight: "bold" }} variant="h6">
+                  Add Course
                 </Typography>
               );
             }
@@ -106,9 +172,13 @@ const AddAndEditMemberDialog = ({
             if (user === "EditUser") {
               return (
                 <div>
-                  <Box my={1}>
+                  {/* <Box my={1}>
                     <Container>
                       <OutlinedInput
+                        onChange={(e) =>
+                          setstate({ ...state, username: e.target.value })
+                        }
+                        defaultValue={userData.username}
                         placeholder="Username"
                         fullWidth
                         className={classes.input}
@@ -119,6 +189,10 @@ const AddAndEditMemberDialog = ({
                   <Box my={1}>
                     <Container>
                       <OutlinedInput
+                        onChange={(e) =>
+                          setstate({ ...state, email: e.target.value })
+                        }
+                        defaultValue={userData.email}
                         placeholder="Email address"
                         fullWidth
                         endAdornment={
@@ -135,35 +209,30 @@ const AddAndEditMemberDialog = ({
                   <Box my={1}>
                     <Container>
                       <OutlinedInput
+                        onChange={(e) =>
+                          setstate({ ...state, password: e.target.value })
+                        }
                         placeholder="Password"
                         fullWidth
                         className={classes.input}
+                        defaultValue={userData.password}
                       />
                     </Container>
-                  </Box>
+                  </Box> */}
 
-                  <Box my={1}>
-                    <Container>
-                      <OutlinedInput
-                        placeholder="Confirm Passowrd"
-                        fullWidth
-                        className={classes.input}
-                      />
-                    </Container>
-                  </Box>
-
-                  <Box>
+                  {/* <Box>
                     <Container>
                       <Button
                         variant="contained"
                         fullWidth
                         className={classes.buttonStyle}
                         style={{ marginBottom: "16px" }}
+                        onClick={() => udpateUser(userData._id)}
                       >
                         Update
                       </Button>
                     </Container>
-                  </Box>
+                  </Box> */}
                 </div>
               );
             }
@@ -172,7 +241,7 @@ const AddAndEditMemberDialog = ({
           {(() => {
             if (user === "AddUser") {
               return (
-                <div>
+                {/* <div>
                   <Box my={1}>
                     <Container>
                       <OutlinedInput
@@ -231,6 +300,101 @@ const AddAndEditMemberDialog = ({
                       </Button>
                     </Container>
                   </Box>
+                </div> */}
+              );
+            }
+          })()}
+          {/* iife for the add a course */}
+          {(() => {
+            if (user === "AddCourse") {
+              return (
+                <div>
+                 
+                  {/* instructor profile */}
+                  <Box my={1}>
+                    <Container>
+                      <Typography variant="caption">
+                        Instructor Profile
+                      </Typography>
+                      <br />
+                      <Input type="file" />
+                    </Container>
+                  </Box>
+
+                  {/* COURSES Level */}
+                  <Box my={2}>
+                    <Container>
+                      <FormControl className={classes.formControl2}>
+                        <InputLabel style={{ marginTop: "4px" }}>
+                          Select Course Level
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          onChange={handleChange}
+                        >
+                          {showCourses.map((val, index) => (
+                            <MenuItem value={index}>{val.title}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {/* add a new level course ICON */}
+                      <Tooltip title="Customize Course Levels">
+                        <IconButton onClick={courseCustomization}>
+                          <AddCircleOutline
+                            color="secondary"
+                            fontSize="small"
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    </Container>
+                  </Box>
+                  {/* SELECT LANGUAGE */}
+
+                  <Box my={2}>
+                    <Container>
+                      <FormControl className={classes.formControl2}>
+                        <InputLabel style={{ marginTop: "4px" }}>
+                          Select Language
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          onChange={handleChange}
+                        >
+                          {showLanguages.map((val, index) => (
+                            <MenuItem value={index}>{val.title}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {/* add a new level course ICON */}
+                      <Tooltip title="Customize Languages" arrow>
+                        <IconButton onClick={languageCustomization}>
+                          <AddCircleOutline
+                            color="secondary"
+                            fontSize="small"
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    </Container>
+                  </Box>
+                  {/* END LANGUAEGE SELECT */}
+
+                  {/* <Box>
+                    <Container>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        className={classes.buttonStyle}
+                        style={{ marginBottom: "16px" }}
+                        onClick={createNewCourse}
+                      >
+                        Add Course
+                      </Button>
+                    </Container>
+                  </Box> */}
                 </div>
               );
             }
@@ -298,80 +462,6 @@ const AddAndEditMemberDialog = ({
                         multiline
                         rows={4}
                       />
-                    </Container>
-                  </Box>
-                  {/* here it will be map */}
-                  <Box my={1}>
-                    <Container>
-                      <img src={mapimg} height="100px" width="400px" alt="" />
-                    </Container>
-                  </Box>
-                  {/* end map */}
-                  <Box my={1}>
-                    {/* this will be a select element */}
-                    <Container>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel>Select Crime Type</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={age}
-                          onChange={handleChange}
-                        >
-                          <MenuItem value="Safety">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Safety
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Crime">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Crime
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Neighbourly moment">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Neighbourly moment
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Missing Person">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Missing Person
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Suspicious activity">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Suspicious activity
-                            </Typography>
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Container>
-                  </Box>
-                  <Box>
-                    <Container>
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        className={classes.buttonStyle}
-                        style={{ marginBottom: "16px" }}
-                      >
-                        Add Post
-                      </Button>
                     </Container>
                   </Box>
                 </div>
@@ -742,6 +832,13 @@ const AddAndEditMemberDialog = ({
           })()}
         </DialogContent>
       </Dialog>
+      {/* cusomization dialog */}
+      <CustomizationDialog
+        openCustomize={openCustomize}
+        setopenCustomize={setopenCustomize}
+        customizeValue={customizeValue}
+      />
+   
     </div>
   );
 };

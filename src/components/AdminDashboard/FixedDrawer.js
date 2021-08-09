@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router";
 import handcr from "../../images/afaaq bhai.jpg";
 import {
   Box,
@@ -26,9 +27,9 @@ import {
   Comment,
   FindInPage,
   MoreVert,
+  ExitToApp,
 } from "@material-ui/icons";
 import {
-  brown,
   green,
   grey,
   pink,
@@ -37,6 +38,7 @@ import {
   teal,
   yellow,
 } from "@material-ui/core/colors";
+import Cookies from "js-cookie";
 const useStyles = makeStyles((theme) => ({
   drawer: {
     marginTop: "61px",
@@ -60,7 +62,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 const FixedDrawer = ({ open, setopen }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [checked, setChecked] = useState(true);
+  const [refreshPage, setrefreshPage] = useState(null);
+  useEffect(() => {
+    if (!Cookies.get("admin")) {
+      history.push("/admin");
+    }
+  }, [refreshPage]);
+  const logout = () => {
+    Cookies.remove("admin");
+    setrefreshPage(!refreshPage);
+  };
 
   return (
     <div>
@@ -87,7 +100,7 @@ const FixedDrawer = ({ open, setopen }) => {
                   <Typography variant="subtitle1" style={{ color: "white" }}>
                     John <br />
                     <Typography variant="caption" style={{ color: "white" }}>
-                      Sales Manager
+                      Admin
                     </Typography>
                   </Typography>
                   <IconButton>
@@ -157,7 +170,7 @@ const FixedDrawer = ({ open, setopen }) => {
                     button
                     className={classes.marginListItems}
                     component={NavLink}
-                    to="/userlist"
+                    to="/admin/courses_handle"
                     exact
                     activeClassName={classes.activeLink}
                   >
@@ -251,18 +264,16 @@ const FixedDrawer = ({ open, setopen }) => {
                     />
                   </ListItem>
                 </Tooltip>
-                {/* Comment item 7 */}
-                <Tooltip title="Comments" arrow>
+
+                {/* logout item 7 */}
+                <Tooltip title="Logout" arrow>
                   <ListItem
                     button
-                    component={NavLink}
                     className={classes.marginListItems}
-                    to="/comments"
-                    exact
-                    activeClassName={classes.activeLink}
+                    onClick={logout}
                   >
                     <ListItemIcon>
-                      <Comment
+                      <ExitToApp
                         fontSize="small"
                         style={{ color: purple[400], fontSize: 15 }}
                       />
@@ -271,29 +282,7 @@ const FixedDrawer = ({ open, setopen }) => {
                       classes={{
                         primary: classes.ListItemText,
                       }}
-                      primary="Experienced Teachers"
-                      style={{ color: grey[400] }}
-                    />
-                  </ListItem>
-                </Tooltip>
-                {/* Comment item 8 */}
-                <Tooltip title="Notifications" arrow>
-                  <ListItem
-                    button
-                    component={NavLink}
-                    className={classes.marginListItems}
-                    to="/notifications"
-                    exact
-                    activeClassName={classes.activeLink}
-                  >
-                    <ListItemIcon>
-                      <NotificationsActive
-                        fontSize="small"
-                        style={{ color: brown[400] }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Courses Categories"
+                      primary="Logout"
                       style={{ color: grey[400] }}
                     />
                   </ListItem>
@@ -515,24 +504,42 @@ const FixedDrawer = ({ open, setopen }) => {
                     />
                   </ListItem>
                 </Tooltip>
-                {/* Comment item 8 */}
-                <Tooltip title="Notifications" arrow>
+                {/* logout item 7 */}
+                <Tooltip title="Logout" arrow>
                   <ListItem
                     button
-                    component={NavLink}
                     className={classes.marginListItems}
-                    to="/notifications"
-                    exact
-                    activeClassName={classes.activeLink}
+                    onClick={logout}
                   >
                     <ListItemIcon>
-                      <NotificationsActive
+                      <ExitToApp
                         fontSize="small"
-                        style={{ color: brown[400] }}
+                        style={{ color: purple[400], fontSize: 15 }}
                       />
                     </ListItemIcon>
                     <ListItemText
-                      primary="Courses Categories"
+                      classes={{
+                        primary: classes.ListItemText,
+                      }}
+                      primary="Logout"
+                      style={{ color: grey[400] }}
+                    />
+                  </ListItem>
+                </Tooltip>
+                {/*  */}
+                <Tooltip title="Logout" arrow>
+                  <ListItem button className={classes.marginListItems}>
+                    <ListItemIcon>
+                      <ExitToApp
+                        fontSize="small"
+                        style={{ color: purple[400], fontSize: 15 }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      classes={{
+                        primary: classes.ListItemText,
+                      }}
+                      primary="Logout"
                       style={{ color: grey[400] }}
                     />
                   </ListItem>

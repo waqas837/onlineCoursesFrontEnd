@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Cookies from "js-cookie";
 import Navbar from "./components/Home/Navbar/Navbar";
 import TeacherForm from "./components/Home/BecomeTeacherSection/TeacherForm";
 import ScrollToTopButton from "./components/ScrollToTopButton";
@@ -21,7 +22,9 @@ import AboutUs from "./components/AboutUsPage/AboutUs";
 import Contact from "./components/ContactUsPage/Contact";
 import ApiTestOptimization from "./components/ApiTestOptimization";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
-import UserList from "./components/AdminDashboard/UserList"
+import UserList from "./components/AdminDashboard/UserList";
+import CoursesHandle from "./components/AdminDashboard/CourseHandle";
+import LoginAdmin from "./components/AdminDashboard/LoginAdmin";
 const font = "Open Sans";
 const theme = createMuiTheme({
   typography: {
@@ -81,17 +84,30 @@ function App() {
           </Route>
           {/* api rest response */}
           {/* contact route */}
-          <Route exact path="/apiTest">
+          {/* <Route exact path="/apiTest">
             <ApiTestOptimization />
-          </Route>
-          
-          {/* admin dashboard */}
+          </Route> */}
+          {/* admin login */}
           <Route exact path="/admin">
-            <AdminDashboard />
+            <LoginAdmin />
           </Route>
-          {/* users to admin */}
-          <Route exact path="/admin/users">
-            <UserList/>
+
+          {Cookies.get("admin") && (
+            <React.Fragment>
+              <Route exact path="/admin/dashboard">
+                <AdminDashboard />
+              </Route>
+              <Route exact path="/admin/users">
+                <UserList />
+              </Route>
+              <Route exact path="/admin/courses_handle">
+                <CoursesHandle />
+              </Route>
+            </React.Fragment>
+          )}
+          {/* api test optimization */}
+          <Route exact path="/api">
+            <ApiTestOptimization />
           </Route>
         </Router>
       </ThemeProvider>
