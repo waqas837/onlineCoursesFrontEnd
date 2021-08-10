@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { coursesApi } from "../../Api";
 import {
@@ -56,8 +56,20 @@ const CoursesHandle = () => {
   const [showlevels, setshowlevels] = React.useState([]);
   const [state, setstate] = useState();
   const [state2, setstate2] = useState();
+  const [img, setimg] = useState([]);
   const [customizeValue, setcustomizeValue] = useState("No selection");
 
+  // uplaod Profile
+  const uplaodProfile = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append = ("img", img);
+    const { data } = await axios.post(
+      `${coursesApi}/addInstructorProfile/${window.id}`,
+      formdata
+    );
+    console.log(data);
+  };
   // add finally lang course
   const addFinallyLanguageToCourse = async () => {
     try {
@@ -262,6 +274,12 @@ const CoursesHandle = () => {
                           Instructor Name
                         </TableCell>
                         <TableCell
+                          align="left"
+                          style={{ color: MainSecondary, fontWeight: "bold" }}
+                        >
+                          Instructor Profile
+                        </TableCell>
+                        <TableCell
                           align="center"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
@@ -292,15 +310,29 @@ const CoursesHandle = () => {
                       {/* row */}
                       {showCourses.map((val) => (
                         <TableRow>
+                          {/* course name */}
                           <TableCell align="left">
                             <Typography variant="subtitle2">
                               {val.coursename}
                             </Typography>
+                            {/* instructor name */}
                           </TableCell>
                           <TableCell align="center">
                             <Typography variant="subtitle2">
                               {val.instructorname}
                             </Typography>
+                          </TableCell>
+                          {/* instructor profile */}
+                          <TableCell>
+                            <form onSubmit={uplaodProfile}>
+                              <input
+                                name="image"
+                                onChange={(e) => setimg(e.target.files[0])}
+                                type="file"
+                                style={{ fontSize: "10px" }}
+                              />
+                              <input type="submit" value="submit" />
+                            </form>
                           </TableCell>
                           <TableCell align="center">
                             <Typography
