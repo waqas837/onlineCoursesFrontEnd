@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { coursesApi } from "../../Api";
 import {
@@ -21,8 +21,18 @@ import {
   DialogActions,
   DialogTitle,
   OutlinedInput,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
 } from "@material-ui/core";
-import { Add, CheckCircleOutline, ErrorOutline } from "@material-ui/icons";
+import {
+  Add,
+  AddCircleOutline,
+  CheckCircleOutline,
+  Close,
+  ErrorOutline,
+} from "@material-ui/icons";
 import { MainSecondary, useStyles } from "./Main.Styles";
 import Navbar from "./Navbar";
 
@@ -32,22 +42,119 @@ const CoursesHandle = () => {
   const [open, setopen] = React.useState(false);
   const [delet, setdelet] = React.useState(false);
   const [loading, setloading] = React.useState(false);
+  const [age, setAge] = React.useState("");
+  const [age2, setAge2] = React.useState("");
   const [opentwo, setopentwo] = React.useState(false);
   const [pageRefresh, setpageRefresh] = React.useState(false);
   const [CourseData, setCourseData] = React.useState([]);
   const [showCourses, setshowCourses] = React.useState([]);
   const [user, setuser] = React.useState("NoSelection");
+  const [openCustomize, setopenCustomize] = React.useState(false);
+  const [openLanguage, setopenLanguage] = React.useState(false);
+  const [difficultyDialog, setdifficultyDialog] = React.useState(false);
+  const [showLanguages, setshowLanguages] = React.useState([]);
+  const [showlevels, setshowlevels] = React.useState([]);
+  const [state, setstate] = useState();
+  const [state2, setstate2] = useState();
+  const [customizeValue, setcustomizeValue] = useState("No selection");
+
+  // add finally lang course
+  const addFinallyLanguageToCourse = async () => {
+    try {
+      const { data } = await axios.post(
+        `${coursesApi}/addFinallyLanguageToCourse/${window.id}/${window.lang}`
+      );
+      if (data) {
+        setpageRefresh(!pageRefresh);
+        setopenLanguage(false);
+        // console.log(data.findData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // add finally level course
+  const addFinallyLevelToCourse = async () => {
+    try {
+      const { data } = await axios.post(
+        `${coursesApi}/addFinallyLevelToCourse/${window.id}/${window.levelVal}`
+      );
+      if (data) {
+        setpageRefresh(!pageRefresh);
+        setdifficultyDialog(false);
+        // console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // add a custome course field level
+  const addCourseField = async () => {
+    try {
+      const { data } = await axios.post(
+        `${coursesApi}/addCourseField/${window.id}`,
+        state
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // add a custom language field
+  const addLanguageField = async () => {
+    try {
+      const { data } = await axios.post(
+        `${coursesApi}/addLanguageField/${window.id}`,
+        state2
+      );
+      setopenCustomize(true);
+      setcustomizeValue("languageCustomize");
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //Fetch fetchCourseDB
+  const fetchCourseLevels = async (id) => {
+    try {
+      const { data } = await axios.get(`${coursesApi}/getCategoryLevels/${id}`);
+      console.log(data.data);
+      // show values in dialog
+      setdifficultyDialog(true);
+      setshowlevels(data.data.courselevel);
+      window.id = data.data._id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //Fetch languages
+  const getLanguages = async (id) => {
+    try {
+      const { data } = await axios.get(`${coursesApi}/getLanguages/${id}`);
+      console.log(data.data);
+      // dialog to select a language
+      setopenLanguage(true);
+      setshowLanguages(data.data.language);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //get all the courses data
   const getAllCourses = async () => {
     try {
       const { data } = await axios.get(`${coursesApi}/getAllCourseData`);
-      console.log(data.newData);
+      // console.log(data.newData);
       setshowCourses(data.newData);
     } catch (error) {
       console.log(error);
     }
   };
   // then call it in useEffect
+  const handleChangeLang = (event, child) => {
+    setAge2(event.target.value);
+    window.lang = child.props.children;
+  };
   useEffect(() => {
     getAllCourses();
   }, [pageRefresh]);
@@ -67,6 +174,22 @@ const CoursesHandle = () => {
       console.log(error);
     }
   };
+  const handleChange = (event, child) => {
+    setAge(event.target.value);
+    // console.log(child.props.children);
+    window.levelVal = child.props.children;
+  };
+
+  //course customization
+  const courseCustomization = () => {
+    setcustomizeValue("courseCustomize");
+    setopenCustomize(true);
+  };
+  //language customization
+  const languageCustomization = () => {
+    setcustomizeValue("languageCustomize");
+    setopenCustomize(true);
+  };
 
   // 1.Add a course
   const addUser = () => {
@@ -78,28 +201,22 @@ const CoursesHandle = () => {
     setopen(false);
     setopentwo(false);
   };
-  // 2.Delelet a course; we will need this later on
-  //open ok dialog and we will delete user data here
-  // const openOneDialog = async () => {
-  //   // delete dialog closed
-  //   setdelet(false);
-  //   setloading(true);
-  //   // call here api and just delete the data
-  //   try {
-  //     const { data } = await axios.delete(
-  //       `${userApi}/deleteSingleUser/${userid}`
-  //     );
-  //     console.log(data);
-  //     // open record deleted dialog that data was deleted
-  //     if (data.success) {
-  //       setopentwo(true);
-  //       setpageRefresh(!pageRefresh);
-  //     }
-  //   } catch (error) {
-  //     setloading(false);
-  //     console.log(error);
-  //   }
-  // };
+  // 2.Delelet a course
+  const delelteCourse = async (id) => {
+    setloading(true);
+    try {
+      const { data } = await axios.delete(`${coursesApi}/deleteACourse/${id}`);
+      console.log(data);
+      // open record deleted dialog that data was deleted
+      if (data.success) {
+        setopentwo(true);
+        setpageRefresh(!pageRefresh);
+      }
+    } catch (error) {
+      setloading(false);
+      console.log(error);
+    }
+  };
   return (
     <div>
       {/* navbar */}
@@ -151,17 +268,17 @@ const CoursesHandle = () => {
                           Course Category
                         </TableCell>
                         <TableCell
-                          align="center"
+                          align="left"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
                           Level
                         </TableCell>
 
                         <TableCell
-                          align="right"
+                          align="center"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
-                          Status
+                          Langauge
                         </TableCell>
                         <TableCell
                           align="center"
@@ -200,7 +317,38 @@ const CoursesHandle = () => {
                               {val.coursecategoryname}
                             </Typography>
                           </TableCell>
-
+                          {/* select a level for category */}
+                          <TableCell>
+                            {val.level ? (
+                              val.level
+                            ) : (
+                              <Button
+                                color="secondary"
+                                variant="contained"
+                                style={{ fontSize: "10px", borderRadius: 0 }}
+                                size="small"
+                                onClick={() => fetchCourseLevels(val._id)}
+                              >
+                                Select Course Level
+                              </Button>
+                            )}
+                          </TableCell>
+                          {/* select a language */}
+                          <TableCell align="center">
+                            {val.lang ? (
+                              val.lang
+                            ) : (
+                              <Button
+                                color="secondary"
+                                variant="contained"
+                                style={{ fontSize: "10px", borderRadius: 0 }}
+                                size="small"
+                                onClick={() => getLanguages(val._id)}
+                              >
+                                Select Language
+                              </Button>
+                            )}
+                          </TableCell>
                           <TableCell align="right">
                             <ButtonGroup orientation="horizontal">
                               <Button
@@ -213,7 +361,7 @@ const CoursesHandle = () => {
                               <Button
                                 size="small"
                                 className={classes.buttonStyleOutlined}
-                                // onClick={() => deleteSingleCourse(val._id)}
+                                onClick={() => delelteCourse(val._id)}
                               >
                                 Delete
                               </Button>
@@ -310,7 +458,7 @@ const CoursesHandle = () => {
         userData={window.sendData}
         setopen={setopen}
       /> */}
-      {/* edit user dialog */}
+      {/* Add course dialog */}
       <Dialog open={open} onClose={() => setopen(false)}>
         <DialogTitle>
           <Typography
@@ -383,6 +531,168 @@ const CoursesHandle = () => {
           </Box>
         </DialogContent>
       </Dialog>
+
+      {/* dialog for select difficulty level for courses */}
+      <Dialog
+        open={difficultyDialog}
+        onClose={() => setdifficultyDialog(false)}
+      >
+        <DialogTitle>
+          <Typography style={{ fontWeight: "bold" }} variant="h6">
+            Select Category Level
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          {/* COURSES Level dialog*/}
+          <Box my={2}>
+            <Container>
+              <FormControl className={classes.formControl2}>
+                <InputLabel style={{ marginTop: "4px" }}>
+                  Select Course Level
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  onChange={handleChange}
+                >
+                  {showlevels.map((val, index) => (
+                    <MenuItem value={index}>{val}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {/* add a new level course ICON */}
+
+              <IconButton onClick={courseCustomization}>
+                <AddCircleOutline color="secondary" fontSize="small" />
+              </IconButton>
+            </Container>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={addFinallyLevelToCourse}
+            variant="outlined"
+            size="small"
+            color="secondary"
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* dialog for select difficulty level for courses */}
+      <Dialog open={openLanguage} onClose={() => setopenLanguage(false)}>
+        <DialogTitle>
+          <Typography style={{ fontWeight: "bold" }} variant="h6">
+            Select a Language
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          {/* languages dialog*/}
+          <Box my={2}>
+            <Container>
+              <FormControl className={classes.formControl2}>
+                <InputLabel style={{ marginTop: "4px" }}>
+                  Select Language
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age2}
+                  onChange={handleChangeLang}
+                >
+                  {showLanguages.map((val, index) => (
+                    <MenuItem value={index}>{val}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {/* add a new lanaguge ICON */}
+
+              <IconButton onClick={languageCustomization}>
+                <AddCircleOutline color="secondary" fontSize="small" />
+              </IconButton>
+            </Container>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={addFinallyLanguageToCourse}
+            variant="outlined"
+            size="small"
+            color="secondary"
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* dialog for customize for courses and languages */}
+      <div>
+        <Dialog open={openCustomize} onClose={() => setopenCustomize(false)}>
+          <DialogTitle>
+            <Box mb={3} display="flex" justifyContent="space-around">
+              <Typography variant="h6">Add Custom Field</Typography>
+              <IconButton
+                onClick={() => setopenCustomize(false)}
+                style={{ marginTop: -5 }}
+              >
+                <Close fontSize="small" color="secondary" />
+              </IconButton>
+            </Box>
+
+            {/* iife for courses */}
+            {(() => {
+              if (customizeValue === "courseCustomize") {
+                return (
+                  <React.Fragment>
+                    <OutlinedInput
+                      placeholder="Write a Correct Field"
+                      style={{ height: "30px", borderRadius: 0 }}
+                      onChange={(e) => setstate(e.target.value)}
+                    />
+                    <DialogActions>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                        style={{ borderRaduis: 0 }}
+                        onClick={addCourseField}
+                      >
+                        Add Level
+                      </Button>
+                    </DialogActions>
+                  </React.Fragment>
+                );
+              }
+            })()}
+            {/* iife for languages */}
+            {(() => {
+              if (customizeValue === "languageCustomize") {
+                return (
+                  <React.Fragment>
+                    <OutlinedInput
+                      placeholder="Write a Correct Field"
+                      style={{ height: "30px", borderRadius: 0 }}
+                      onChange={(e) => setstate2(e.target.value)}
+                    />
+                    <DialogActions>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                        style={{ borderRaduis: 0 }}
+                        onClick={addLanguageField}
+                      >
+                        Add Language
+                      </Button>
+                    </DialogActions>
+                  </React.Fragment>
+                );
+              }
+            })()}
+          </DialogTitle>
+        </Dialog>
+      </div>
     </div>
   );
 };

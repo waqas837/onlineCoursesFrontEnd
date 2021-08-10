@@ -54,19 +54,22 @@ const AddAndEditMemberDialog = ({
   //   fetchCourseAndLanguagesDB();
   // }, [userCheck]);
   axios.defaults.withCredentials = true;
-  
-  //Fetch fetchCourseDB
-  const fetchCourseAndLanguagesDB = async () => {
-    try {
-      const { data } = await axios.get(`${coursesApi}/defaultCourses`);
-      // console.log(data)
-      setshowCourses(data.newData[0].courselevel.map((val) => val));
-      setshowLanguages(data.newData[0].language.map((val) => val));
-      // console.log(data.data.language);
-    } catch (error) {
-      console.log(error);
-    }
+  const courseCustomization = () => {
+    setopenCustomize(true);
+    setcustomizeValue("courseCustomize");
   };
+  // //Fetch fetchCourseDB
+  // const fetchCourseAndLanguagesDB = async () => {
+  //   try {
+  //     const { data } = await axios.get(`${coursesApi}/defaultCourses`);
+  //     // console.log(data)
+  //     setshowCourses(data.newData[0].courselevel.map((val) => val));
+  //     setshowLanguages(data.newData[0].language.map((val) => val));
+  //     // console.log(data.data.language);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   // // update user
   // const udpateUser = async (userId) => {
   //   try {
@@ -85,11 +88,7 @@ const AddAndEditMemberDialog = ({
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  //course customization
-  const courseCustomization = () => {
-    setopenCustomize(true);
-    setcustomizeValue("courseCustomize");
-  };
+  ;
   //language customization
   const languageCustomization = () => {
     setopenCustomize(true);
@@ -321,7 +320,7 @@ const AddAndEditMemberDialog = ({
                     </Container>
                   </Box>
 
-                  {/* COURSES Level */}
+                  COURSES Level
                   <Box my={2}>
                     <Container>
                       <FormControl className={classes.formControl2}>
@@ -656,149 +655,7 @@ const AddAndEditMemberDialog = ({
               );
             }
           })()}
-          {/* iife for edit a post */}
-          {(() => {
-            if (post === "EditPost") {
-              return (
-                <div>
-                  <Container maxWidth="xs">
-                    <Grid container>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <img
-                          style={{ borderRadius: "10px" }}
-                          src={dummyimg}
-                          alt=""
-                          width="70%"
-                          height="70px"
-                        />
-                      </Grid>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <img
-                          style={{ borderRadius: "10px" }}
-                          src={dummyimg}
-                          alt=""
-                          width="70%"
-                          height="70px"
-                        />
-                      </Grid>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <img
-                          style={{ borderRadius: "10px" }}
-                          src={dummyimg}
-                          alt=""
-                          width="70%"
-                          height="70px"
-                        />
-                      </Grid>
-                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <img
-                          style={{ borderRadius: "10px" }}
-                          src={dummyimg}
-                          alt=""
-                          width="70%"
-                          height="70px"
-                        />
-                      </Grid>
-                    </Grid>
-                  </Container>
-                  <Box my={1}>
-                    <Container>
-                      <OutlinedInput
-                        placeholder="Add title"
-                        fullWidth
-                        className={classes.input}
-                      />
-                    </Container>
-                  </Box>
-
-                  <Box my={1}>
-                    <Container>
-                      <OutlinedInput
-                        placeholder="Description"
-                        fullWidth
-                        multiline
-                        rows={4}
-                      />
-                    </Container>
-                  </Box>
-                  {/* here it will be map */}
-                  <Box my={1}>
-                    <Container>
-                      <img src={mapimg} height="100px" width="400px" alt="" />
-                    </Container>
-                  </Box>
-                  {/* end map */}
-                  <Box my={1}>
-                    {/* this will be a select element */}
-                    <Container>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel>Select Crime Type</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={age}
-                          onChange={handleChange}
-                        >
-                          <MenuItem value="Safety">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Safety
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Crime">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Crime
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Neighbourly moment">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Neighbourly moment
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Missing Person">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Missing Person
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="Suspicious activity">
-                            <Typography
-                              variant="subtitle2"
-                              style={{ color: MainSecondary }}
-                            >
-                              Suspicious activity
-                            </Typography>
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Container>
-                  </Box>
-                  <Box>
-                    <Container>
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        className={classes.buttonStyle}
-                        style={{ marginBottom: "16px" }}
-                      >
-                        Update Post
-                      </Button>
-                    </Container>
-                  </Box>
-                </div>
-              );
-            }
-          })()}
+          
           {/* iffie for edit the comments */}
           {(() => {
             if (comment === "EditComment") {
