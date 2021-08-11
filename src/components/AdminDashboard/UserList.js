@@ -159,6 +159,7 @@ const UserList = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell
+                          align="center"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
                           Username
@@ -178,7 +179,7 @@ const UserList = () => {
                         </TableCell>
 
                         <TableCell
-                          align="right"
+                          align="center"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
                           Status
@@ -195,17 +196,17 @@ const UserList = () => {
                       {/* row */}
                       {fetchedUsersApi.map((val) => (
                         <TableRow>
-                          <TableCell align="right">
+                          <TableCell align="center">
                             <Typography variant="subtitle2">
                               {val.username}
                             </Typography>
                           </TableCell>
-                          <TableCell align="right">
+                          <TableCell align="center">
                             <Typography variant="subtitle2">
                               {val.email}
                             </Typography>
                           </TableCell>
-                          <TableCell>
+                          <TableCell align="center">
                             <Typography
                               variant="subtitle2"
                               style={{
@@ -215,13 +216,13 @@ const UserList = () => {
                                 display: "inline-block",
                                 overflow: "hidden",
                               }}
-                              align="right"
+                              
                             >
                               {val.password}
                             </Typography>
                           </TableCell>
 
-                          <TableCell align="right">
+                          <TableCell align="center">
                             {val.status ? (
                               <Button className={classes.buttonStyle}>
                                 Approved
@@ -236,7 +237,7 @@ const UserList = () => {
                             )}
                           </TableCell>
 
-                          <TableCell align="right">
+                          <TableCell align="center">
                             <ButtonGroup orientation="horizontal">
                               <Button
                                 size="small"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { coursesApi } from "../../Api";
+import toast, { Toaster } from "react-hot-toast";
+import { coursesApi, imgUrl } from "../../Api";
 import {
   Box,
   Container,
@@ -32,6 +33,8 @@ import {
   CheckCircleOutline,
   Close,
   ErrorOutline,
+  GTranslate,
+  SignalCellularAlt,
 } from "@material-ui/icons";
 import { MainSecondary, useStyles } from "./Main.Styles";
 import Navbar from "./Navbar";
@@ -56,28 +59,38 @@ const CoursesHandle = () => {
   const [showlevels, setshowlevels] = React.useState([]);
   const [state, setstate] = useState();
   const [state2, setstate2] = useState();
-  const [img, setimg] = useState([]);
+  const [img, setimg] = useState("");
   const [customizeValue, setcustomizeValue] = useState("No selection");
-
   // uplaod Profile
-  const uplaodProfile = async (e) => {
+  const uplaodProfile = async (e, id) => {
+    if (!img) {
+      toast.error("Provide an image!");
+    }
     e.preventDefault();
-    const formdata = new FormData();
-    formdata.append = ("img", img);
-    const { data } = await axios.post(
-      `${coursesApi}/addInstructorProfile/${window.id}`,
-      formdata
-    );
-    console.log(data);
+    var fData = new FormData();
+    fData.append("image", img);
+    try {
+      const { data } = await axios.post(
+        `${coursesApi}/addInstructorProfile/${id}`,
+        fData
+      );
+      if (data.success) {
+        setpageRefresh(!pageRefresh);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   // add finally lang course
   const addFinallyLanguageToCourse = async () => {
     try {
       const { data } = await axios.post(
-        `${coursesApi}/addFinallyLanguageToCourse/${window.id}/${window.lang}`
+        `${coursesApi}/addFinallyLanguageToCourse/${window.Lid}/${window.lang}`
       );
-      if (data) {
+      if (DataTransferItemList) {
         setpageRefresh(!pageRefresh);
+        setopenCustomize(false);
         setopenLanguage(false);
         // console.log(data.findData);
       }
@@ -108,6 +121,12 @@ const CoursesHandle = () => {
         `${coursesApi}/addCourseField/${window.id}`,
         state
       );
+      if (data) {
+        setpageRefresh(!pageRefresh);
+        setopenCustomize(false);
+        setdifficultyDialog(false);
+        toast.success("Level was Added Go And Select Again");
+      }
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -117,11 +136,16 @@ const CoursesHandle = () => {
   const addLanguageField = async () => {
     try {
       const { data } = await axios.post(
-        `${coursesApi}/addLanguageField/${window.id}`,
+        `${coursesApi}/addLanguageField/${window.Lid}`,
         state2
       );
-      setopenCustomize(true);
+      // setopenCustomize(true);
       setcustomizeValue("languageCustomize");
+      setpageRefresh(!pageRefresh);
+      setopenLanguage(false);
+      setopenCustomize(false);
+      toast.success("Language was Added Go And Select Again");
+
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -146,8 +170,12 @@ const CoursesHandle = () => {
       const { data } = await axios.get(`${coursesApi}/getLanguages/${id}`);
       console.log(data.data);
       // dialog to select a language
-      setopenLanguage(true);
-      setshowLanguages(data.data.language);
+      window.Lid = data.data._id;
+      if (data.success) {
+        setopenLanguage(true);
+        setshowLanguages(data.data.language);
+        setpageRefresh(!pageRefresh);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -156,7 +184,7 @@ const CoursesHandle = () => {
   const getAllCourses = async () => {
     try {
       const { data } = await axios.get(`${coursesApi}/getAllCourseData`);
-      // console.log(data.newData);
+      console.log(data.newData);
       setshowCourses(data.newData);
     } catch (error) {
       console.log(error);
@@ -172,18 +200,30 @@ const CoursesHandle = () => {
   }, [pageRefresh]);
   // create new course
   const createNewCourse = async () => {
-    try {
-      const { data } = await axios.post(
-        `${coursesApi}/addNewCourse`,
-        CourseData
-      );
-      if (data.success) {
-        setpageRefresh(!pageRefresh);
-        setopen(false);
+    if (
+      CourseData.coursename === undefined ||
+      CourseData.coursecategoryname === undefined ||
+      CourseData.instructorname === undefined
+    ) {
+      toast.error("Please fill the fields");
+    } else if (
+      CourseData.coursename !== undefined ||
+      CourseData.coursecategoryname !== undefined ||
+      CourseData.instructorname !== undefined
+    ) {
+      try {
+        const { data } = await axios.post(
+          `${coursesApi}/addNewCourse`,
+          CourseData
+        );
+        if (data.success) {
+          setpageRefresh(!pageRefresh);
+          setopen(false);
+        }
+        console.log(data);
+      } catch (error) {
+        console.log(error);
       }
-      console.log(data);
-    } catch (error) {
-      console.log(error);
     }
   };
   const handleChange = (event, child) => {
@@ -223,6 +263,10 @@ const CoursesHandle = () => {
       if (data.success) {
         setopentwo(true);
         setpageRefresh(!pageRefresh);
+        setTimeout(() => {
+          setopentwo(false);
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
       setloading(false);
@@ -233,6 +277,7 @@ const CoursesHandle = () => {
     <div>
       {/* navbar */}
       <Navbar />
+      <Toaster />
       <Box mt={10} ml={25} className={classes.resposiveFromSide}>
         <Container maxWidth="md">
           {/* line 0 */}
@@ -242,7 +287,15 @@ const CoursesHandle = () => {
             </Grid>
             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
               <Box textAlign="right">
-                {/* pdf icon */}
+              {/* Level icon */}
+              {/* <IconButton>
+                  <SignalCellularAlt fontSize="small" style={{ color: MainSecondary }} />
+                </IconButton> */}
+              {/* Language icon */}
+              {/* <IconButton onClick={addUser}>
+                  <GTranslate fontSize="small" style={{ color: MainSecondary }} />
+                </IconButton> */}
+                {/* add icon */}
                 <IconButton onClick={addUser}>
                   <Add fontSize="small" style={{ color: MainSecondary }} />
                 </IconButton>
@@ -286,7 +339,7 @@ const CoursesHandle = () => {
                           Course Category
                         </TableCell>
                         <TableCell
-                          align="left"
+                          align="center"
                           style={{ color: MainSecondary, fontWeight: "bold" }}
                         >
                           Level
@@ -324,15 +377,30 @@ const CoursesHandle = () => {
                           </TableCell>
                           {/* instructor profile */}
                           <TableCell>
-                            <form onSubmit={uplaodProfile}>
-                              <input
-                                name="image"
-                                onChange={(e) => setimg(e.target.files[0])}
-                                type="file"
-                                style={{ fontSize: "10px" }}
+                            {val.instructorimage ? (
+                              <img
+                                src={`${imgUrl}/${val.instructorimage}`}
+                                style={{
+                                  width: 30,
+                                  height: 30,
+                                  borderRadius: 100,
+                                }}
+                                alt=""
                               />
-                              <input type="submit" value="submit" />
-                            </form>
+                            ) : (
+                              <form
+                                onSubmit={(e) => uplaodProfile(e, val._id)}
+                                encType="multipart/form-data"
+                              >
+                                <input
+                                  name="image"
+                                  onChange={(e) => setimg(e.target.files[0])}
+                                  type="file"
+                                  style={{ fontSize: "10px" }}
+                                />
+                                <input type="submit" value="upload" />
+                              </form>
+                            )}
                           </TableCell>
                           <TableCell align="center">
                             <Typography
